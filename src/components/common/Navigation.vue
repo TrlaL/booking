@@ -1,0 +1,64 @@
+<template>
+  <div class="navigation">
+    <div class="back">
+      <img src="/static/images/arrow-left.png">
+      Back to Activities
+    </div>
+    <div class="title">{{ title }}</div>
+    <Menu />
+  </div>
+</template>
+
+<script>
+import Menu from '../common/Menu'
+
+export default {
+  components: {
+    Menu
+  },
+  props: {
+    title: {
+      required: true,
+      type: String
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@include desktop {
+  .navigation {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 65px;
+  }
+
+  .back {
+    align-items: center;
+    color: #828282;
+    display: flex;
+    flex: 1;
+    max-width: 250px;
+
+    img {
+      margin-right: 5px;
+    }
+  }
+
+  .title {
+    color: #BDBDBD;
+    flex: 1;
+    font-size: 20px;
+    font-weight: 300;
+    max-width: 250px;
+    text-align: center;
+  }
+}
+
+@include mobile {
+  .navigation {
+    display: none;
+  }
+}
+</style>
