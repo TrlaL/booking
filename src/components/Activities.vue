@@ -1,20 +1,17 @@
 <template>
   <div class="container box">
     <ActivitiesControls />
-    <ActivitiesMenu />
     <ActivitiesList />
   </div>
 </template>
 
 <script>
 import ActivitiesControls from './activities/ActivitiesControls'
-import ActivitiesMenu from './activities/ActivitiesMenu'
 import ActivitiesList from './activities/ActivitiesList'
 
 export default {
   components: {
     ActivitiesControls,
-    ActivitiesMenu,
     ActivitiesList
   }
 }

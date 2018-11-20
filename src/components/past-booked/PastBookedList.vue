@@ -1,8 +1,8 @@
 <template>
-  <div class="activities-list">
+  <div class="past-booked-list box">
     <ActivitieMenu />
-    <div class="activities">
-      <Activitie class="item" :key="i" v-for="i in 4" />
+    <div class="list">
+      <Activitie class="item" type="past-booked" />
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .activities {
+  .list {
     padding: 0 15px 15px 15px;
   }
 
@@ -37,7 +37,11 @@ export default {
 }
 
 @include mobile {
-  .activities-list {
+  .box {
+    all: unset;
+  }
+
+  .past-booked-list {
     background: #eee;
   }
 

@@ -18,7 +18,7 @@
       <div class="controls">
         <div class="icons">
           <img src="/static/images/share.png">
-          <img src="/static/images/favorite.png">
+          <img :src="favoriteIcon">
         </div>
         <div class="price">$20</div>
         <button class="book">Book</button>
@@ -49,12 +49,33 @@
         </div>
         <div class="icons">
           <img src="/static/images/share.png">
-          <img src="/static/images/favorite.png">
+          <img :src="favoriteIcon">
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      imagesPath: '/static/images/'
+    }
+  },
+  computed: {
+    favoriteIcon () {
+      return `${this.imagesPath}${this.type === 'favorites' ? 'my-favorite.png' : 'favorite.png'}`
+    }
+  },
+  props: {
+    type: {
+      default: 'activitie',
+      type: String
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @include desktop {

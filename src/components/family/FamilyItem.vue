@@ -1,6 +1,11 @@
 <template>
   <div class="family-item">
-    <InlineForm :icon="icon" :isNew="isNew" :forms="forms" />
+    <InlineForm
+      :buttonText="buttonText"
+      :icon="icon"
+      :forms="forms"
+      :resetButton="resetButton"
+    />
   </div>
 </template>
 
@@ -36,20 +41,18 @@ export default {
     }
   },
   props: {
+    buttonText: String,
     data: {
       default () {
         return {}
       },
       type: Object
     },
-    isNew: {
-      default: false,
-      type: Boolean
-    },
     person: {
       required: true,
       type: String
-    }
+    },
+    resetButton: Boolean
   }
 }
 </script>

@@ -1,7 +1,9 @@
 <template>
   <div class="app">
     <Header />
-    <router-view />
+    <transition name="fade">
+      <router-view />
+    </transition>
     <Footer />
   </div>
 </template>
@@ -21,4 +23,5 @@ export default {
 <style lang="scss">
 @import './assets/css/poppins.css';
 @import './assets/css/general.css';
+@import './assets/css/animations.css';
 </style>

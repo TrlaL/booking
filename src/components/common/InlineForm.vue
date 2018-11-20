@@ -1,7 +1,10 @@
 <template>
   <div class="inline-form">
     <img class="image" :src="iconSrc">
-    <div class="section">
+    <div class="fill" v-if="hasSlot">
+      <slot></slot>
+    </div>
+    <div class="section" v-else>
       <div class="form" :key="i" v-for="(form, i) in forms">
         <label>{{ form.label }}</label>
         <input type="text" :value="form.value">
@@ -9,7 +12,7 @@
     </div>
     <div class="buttons">
       <button>{{ buttonText }}</button>
-      <img class="reset" src="/static/images/reset.png" :class="resetClass" v-show="!isNew">
+      <img class="reset" src="/static/images/reset.png" v-show="resetButton">
     </div>
   </div>
 </template>
@@ -17,30 +20,27 @@
 <script>
 export default {
   computed: {
-    buttonText () {
-      return this.isNew ? 'Save' : 'Update'
+    hasSlot () {
+      return this.$slots.default
     },
     iconSrc () {
       return `/static/images/${this.icon}`
-    },
-    resetClass () {
-      return {
-        hidden: this.resetButton
-      }
     }
   },
   props: {
+    buttonText: {
+      default: 'Save',
+      type: String
+    },
     forms: {
-      required: true,
+      default () {
+        return []
+      },
       type: Array
     },
     icon: {
       required: true,
       type: String
-    },
-    isNew: {
-      default: false,
-      type: Boolean
     },
     resetButton: {
       default: false,
@@ -61,14 +61,20 @@ export default {
     }
   }
 
+  .image {
+    margin-right: 50px;
+    object-fit: contain;
+  }
+
+  .fill {
+    align-items: center;
+    display: flex;
+    flex: 1;
+  }
+
   .section {
     display: flex;
     flex: 1;
-
-    .image {
-      margin-right: 50px;
-      object-fit: contain;
-    }
 
     .form {
       display: flex;
@@ -116,10 +122,6 @@ export default {
       object-fit: contain;
       margin-left: 8px;
     }
-
-    img.hidden {
-      visibility: hidden;
-    }
   }
 }
 
@@ -129,6 +131,10 @@ export default {
   }
 
   .section {
+    padding: 20px 20px 0 20px;
+  }
+
+  .fill {
     padding: 20px 20px 0 20px;
   }
 

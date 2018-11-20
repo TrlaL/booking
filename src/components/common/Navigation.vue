@@ -2,7 +2,7 @@
   <div class="navigation">
     <div class="back">
       <img src="/static/images/arrow-left.png">
-      Back to Activities
+      <router-link to="/">Back to Activities</router-link>
     </div>
     <div class="title">{{ title }}</div>
     <Menu />
@@ -40,6 +40,11 @@ export default {
     display: flex;
     flex: 1;
     max-width: 250px;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     img {
       margin-right: 5px;

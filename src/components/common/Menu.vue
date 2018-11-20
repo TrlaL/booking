@@ -1,17 +1,34 @@
 <template>
-  <div class="menu">
+  <div class="menu" @mouseenter="handle(true)" @mouseleave="handle(false)">
     <img src="/static/images/user-small.png">
     My Account
     <img src="/static/images/arrow-bottom.png">
-    <div class="list">
-      <a href="#">My Favorites</a>
-      <a href="#">I’m Going</a>
-      <router-link to="/family">Kids & Caregivers</router-link>
-      <a href="#">Past Booked</a>
-      <a href="#">Account</a>
-    </div>
+    <transition name="fade">
+      <div class="list" v-show="visible">
+        <router-link to="/favorites">My Favorites</router-link>
+        <router-link to="/going">I’m Going</router-link>
+        <router-link to="/family">Kids & Caregivers</router-link>
+        <router-link to="/past-booked">Past Booked</router-link>
+        <router-link to="/account">Account</router-link>
+      </div>
+    </transition>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      visible: false
+    }
+  },
+  methods: {
+    handle (visible) {
+      this.visible = visible
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .menu {
@@ -26,16 +43,13 @@
   max-width: 250px;
   padding: 5px 17px 5px 17px;
   position: relative;
-
-  &:hover .list {
-    display: flex;
-  }
+  z-index: 99;
 }
 
 .list {
   background: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  display: none;
+  display: flex;
   flex-direction: column;
   font-size: 15px;
   left: 0;

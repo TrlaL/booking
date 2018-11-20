@@ -8,7 +8,10 @@
             Kid(s)
           </div>
           <div class="kids">
-            <FamilyItem class="item" person="kid" :data="data" />
+            <FamilyItem
+              class="item"
+              person="kid"
+            />
           </div>
           <div class="add">
             <a href="#">+ Add Kid</a>
@@ -20,8 +23,17 @@
             Caregiver(s)
           </div>
           <div class="caregivers">
-            <FamilyItem class="item" person="caregiver" :data="data" />
-            <FamilyItem class="item" person="caregiver" :isNew="true" />
+            <FamilyItem
+              class="item"
+              buttonText="Update"
+              person="caregiver"
+              :data="data"
+              :resetButton="true"
+            />
+            <FamilyItem
+              class="item"
+              person="caregiver"
+            />
           </div>
           <div class="add">
             <a href="#">+ Add Caregiver</a>
@@ -56,7 +68,7 @@ export default {
 @include desktop {
   .content {
     margin: auto;
-    max-width: 880px;
+    max-width: 70%;
     padding: 25px 0 25px 0;
   }
 
