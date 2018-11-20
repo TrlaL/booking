@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Account from './components/Account'
 import Activities from './components/Activities'
+import Booking from './components/Booking'
 import Family from './components/Family'
 import Favorites from './components/Favorites'
 import Going from './components/Going'
@@ -18,6 +19,10 @@ export default new Router({
     {
       path: '/account',
       component: Account
+    },
+    {
+      path: '/booking',
+      component: Booking
     },
     {
       path: '/family',

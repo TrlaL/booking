@@ -21,7 +21,7 @@
           <img :src="favoriteIcon">
         </div>
         <div class="price">$20</div>
-        <button class="book">Book</button>
+        <router-link class="book" to="/booking">Book</router-link>
         <div class="seats">Seats Left: 3</div>
       </div>
     </div>
@@ -157,6 +157,7 @@ export default {
       color: #fff;
       font-size: 15px;
       padding: 10px 0 10px 0;
+      text-align: center;
       width: 100px;
     }
   }

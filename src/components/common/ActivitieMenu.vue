@@ -1,10 +1,35 @@
 <template>
   <div class="activities-menu">
-    <a class="selected" href="#">DROP-INS</a>
-    <a href="#">SEMESTERS</a>
-    <a href="#">CAMPS</a>
+    <a
+      href="#"
+      v-for="(item, i) in items"
+      :class="className(i)"
+      :key="i"
+      @click="select(i)"
+    >{{ item }}</a>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      items: ['DROP-INS', 'SEMESTERS', 'CAMPS'],
+      selected: 0
+    }
+  },
+  methods: {
+    className (index) {
+      return {
+        selected: index === this.selected
+      }
+    },
+    select (index) {
+      this.selected = index
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @include desktop {

@@ -1,7 +1,9 @@
 <template>
   <div class="header">
     <div class="container">
-      <div class="logo"></div>
+      <router-link to="/">
+        <div class="logo"></div>
+      </router-link>
       <div class="desktop-links">
         <a href="#">Browse Activities</a>
         <a href="#">Browse Featured Providers </a>
