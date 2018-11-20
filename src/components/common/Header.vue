@@ -8,7 +8,7 @@
         <a class="button" href="#">FEATURE YOUR<br>ACTIVITIES</a>
       </div>
       <div class="mobile-controls">
-        <img src="/static/images/user-gray.png">
+        <img src="/static/images/user-small.png">
       </div>
     </div>
   </div>

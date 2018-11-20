@@ -6,7 +6,7 @@
     <div class="list">
       <a href="#">My Favorites</a>
       <a href="#">I’m Going</a>
-      <a href="#">Kids & Caregivers</a>
+      <router-link to="/family">Kids & Caregivers</router-link>
       <a href="#">Past Booked</a>
       <a href="#">Account</a>
     </div>
