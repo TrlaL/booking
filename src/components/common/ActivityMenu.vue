@@ -18,6 +18,11 @@ export default {
       selected: 0
     }
   },
+  computed: {
+    isLoading () {
+      return this.$store.getters.isLoading
+    }
+  },
   methods: {
     className (index) {
       return {
@@ -25,6 +30,7 @@ export default {
       }
     },
     select (index) {
+      if (this.isLoading) return
       this.selected = index
       this.$emit('changeItem', index)
     }

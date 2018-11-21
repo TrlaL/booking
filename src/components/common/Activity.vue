@@ -118,7 +118,7 @@ export default {
 
   .title {
     color: #6B3C96;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 510;
     text-decoration: underline;
   }

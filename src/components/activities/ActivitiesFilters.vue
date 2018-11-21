@@ -1,16 +1,7 @@
 <template>
   <transition name="fade">
     <div class="activities-filters" v-show="visible">
-      фильтры <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      filters
     </div>
   </transition>
 </template>
@@ -29,7 +20,6 @@ export default {
 <style lang="scss" scoped>
 .activities-filters {
   background: #fff;
-  border-bottom: 1px solid #ddd;
   left: 0;
   height: 500px;
   top: 100%;

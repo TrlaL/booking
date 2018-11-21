@@ -43,9 +43,11 @@ export default {
   },
   methods: {
     async getActivities (params, query) {
+      this.$store.commit('SET_LOADING_STATUS', true)
       this.isLoaded = false
       let response = await getActivities(params, query)
       if (response.data.result) {
+        this.$store.commit('SET_LOADING_STATUS', false)
         this.isLoaded = true
         this.items = this.items.concat(response.data.items)
         this.pagesCount = response.data.pages.pagesCount

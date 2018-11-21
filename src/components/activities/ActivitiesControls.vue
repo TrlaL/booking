@@ -15,9 +15,7 @@
       </div>
       <Menu />
     </div>
-    <div class="filters" v-show="filters">
-      <ActivitiesFilters />
-    </div>
+    <ActivitiesFilters v-show="filters" />
   </div>
 </template>
 
