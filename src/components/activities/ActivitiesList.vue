@@ -1,20 +1,28 @@
 <template>
   <div class="activities-list">
-    <ActivitieMenu />
     <div class="activities">
-      <Activitie class="item" :key="i" v-for="i in 4" />
+      <Activity
+        class="item"
+        :key="item.id"
+        :item="item"
+        v-for="item in items"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Activitie from '../common/Activitie'
-import ActivitieMenu from '../common/ActivitieMenu'
+import Activity from '../common/Activity'
 
 export default {
   components: {
-    Activitie,
-    ActivitieMenu
+    Activity
+  },
+  props: {
+    items: {
+      required: true,
+      type: Array
+    }
   }
 }
 </script>
@@ -49,5 +57,10 @@ export default {
   .item:last-child {
     margin: 0;
   }
+}
+
+.empty {
+  font-size: 20px;
+  text-align: center;
 }
 </style>

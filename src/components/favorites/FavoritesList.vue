@@ -1,20 +1,29 @@
 <template>
-  <div class="favorites-list box">
-    <ActivitieMenu />
+  <div class="favorites-list">
     <div class="list">
-      <Activitie class="item" type="favorites" :key="i" v-for="i in 2" />
+      <Activity
+        class="item"
+        type="favorites"
+        :key="item.id"
+        :item="item"
+        v-for="item in items"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Activitie from '../common/Activitie'
-import ActivitieMenu from '../common/ActivitieMenu'
+import Activity from '../common/Activity'
 
 export default {
   components: {
-    Activitie,
-    ActivitieMenu
+    Activity
+  },
+  props: {
+    items: {
+      required: true,
+      type: Array
+    }
   }
 }
 </script>

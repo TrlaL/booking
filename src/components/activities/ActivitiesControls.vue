@@ -7,33 +7,33 @@
         <img :src="`/static/images/${filtersArrow}`">
       </div>
       <div class="search">
-        <input placeholder="Try “Chess” or “Ballet”" type="text">
-        <button>
+        <input v-model="query" placeholder="Try “Chess” or “Ballet”" type="text">
+        <img class="reset" @click="reset" src="/static/images/reset-input.png">
+        <button @click="search">
           <img src="/static/images/search.png">
         </button>
       </div>
       <Menu />
     </div>
     <div class="filters" v-show="filters">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      <ActivitiesFilters />
     </div>
   </div>
 </template>
 
 <script>
+import ActivitiesFilters from './ActivitiesFilters'
 import Menu from '../common/Menu'
 
 export default {
   components: {
+    ActivitiesFilters,
     Menu
   },
   data () {
     return {
-      filters: false
+      filters: false,
+      query: ''
     }
   },
   computed: {
@@ -47,6 +47,13 @@ export default {
     }
   },
   methods: {
+    reset () {
+      this.query = ''
+      this.$emit('search', this.query)
+    },
+    search (reset = false) {
+      this.$emit('search', this.query)
+    },
     toggleFilters () {
       this.filters = !this.filters
     }
@@ -107,7 +114,12 @@ export default {
         background: #D9429F;
         border: 0;
         border-radius: 0 5px 5px 0;
+        cursor: pointer;
         height: 100%;
+      }
+
+      .reset {
+        margin-right: 10px;
       }
     }
   }

@@ -43,7 +43,7 @@ export default {
   max-width: 250px;
   padding: 5px 17px 5px 17px;
   position: relative;
-  z-index: 99;
+  z-index: 1;
 }
 
 .list {

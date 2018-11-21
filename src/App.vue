@@ -5,11 +5,6 @@
       <router-view />
     </transition>
     <Footer />
-    <Modal title="Do you want to cancel this activity?" :buttons="true">
-      <div>*Full refund for drop-in if cancelled more than 24 hours  prior to the start of the class/event.</div>
-      <div>*Full refund for camps and semesters if cancelled more than 7 days prior to the start of the activity.</div>
-      <div>*Unfortunetely if it is past the cancellation period we cannot offer a refund.</div>
-    </Modal>
   </div>
 </template>
 

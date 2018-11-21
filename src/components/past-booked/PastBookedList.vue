@@ -1,20 +1,20 @@
 <template>
   <div class="past-booked-list box">
-    <ActivitieMenu />
+    <ActivityMenu />
     <div class="list">
-      <Activitie class="item" type="past-booked" />
+      <Activity class="item" type="past-booked" />
     </div>
   </div>
 </template>
 
 <script>
-import Activitie from '../common/Activitie'
-import ActivitieMenu from '../common/ActivitieMenu'
+import Activity from '../common/Activity'
+import ActivityMenu from '../common/ActivityMenu'
 
 export default {
   components: {
-    Activitie,
-    ActivitieMenu
+    Activity,
+    ActivityMenu
   }
 }
 </script>

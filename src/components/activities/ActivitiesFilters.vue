@@ -1,7 +1,16 @@
 <template>
   <transition name="fade">
     <div class="activities-filters" v-show="visible">
-
+      фильтры <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
   </transition>
 </template>

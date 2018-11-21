@@ -1,9 +1,11 @@
 <template>
   <div class="activities-item">
     <div class="desktop-content">
-      <img class="front-image" src="/static/images/family/child-1.png">
+      <div class="front-image">
+        <img :src="frontImage">
+      </div>
       <div class="section">
-        <div class="title">Infant’s Music Class</div>
+        <div class="title">{{ item.name }}</div>
         <div class="table">
           <span>Tuesday, March 30th</span>
           <span>Ages: 3 months - 1 year</span>
@@ -12,7 +14,7 @@
         </div>
         <div class="place">
           <img class="icon" src="/static/images/place.png">
-          401 East 73rd Street, New York, NY 10021
+          {{ item.address }}
         </div>
       </div>
       <div class="controls">
@@ -20,21 +22,21 @@
           <img src="/static/images/share.png">
           <img :src="favoriteIcon">
         </div>
-        <div class="price">$20</div>
+        <div class="price">${{ item.price }}</div>
         <router-link class="book" to="/booking">Book</router-link>
         <div class="seats">Seats Left: 3</div>
       </div>
     </div>
     <div class="mobile-content">
       <div class="front">
-        <img class="image" src="/static/images/family/child-1.png">
+        <img class="image" :src="frontImage">
         <div class="provided">Provided by: Citibabes</div>
         <div class="date">Friday, August 31st<br>3:00PM to 4pm</div>
-        <div class="price">$21</div>
+        <div class="price">${{ item.price }}</div>
       </div>
       <div class="section">
         <div class="info">
-          <div class="title">Infant’s Music Class</div>
+          <div class="title">{{ item.name }}</div>
           <div>Ages: 3 months - 1 year</div>
           <div>Seats left: 3</div>
         </div>
@@ -45,7 +47,7 @@
       <div class="place">
         <div class="target">
           <img class="icon" src="/static/images/place.png">
-          610 Market Street, New York, NY
+          {{ item.address }}
         </div>
         <div class="icons">
           <img src="/static/images/share.png">
@@ -66,9 +68,16 @@ export default {
   computed: {
     favoriteIcon () {
       return `${this.imagesPath}${this.type === 'favorites' ? 'my-favorite.png' : 'favorite.png'}`
+    },
+    frontImage () {
+      return this.item.photos ? this.item.photos[0] : ''
     }
   },
   props: {
+    item: {
+      required: true,
+      type: Object
+    },
     type: {
       default: 'activitie',
       type: String
@@ -87,8 +96,16 @@ export default {
   }
 
   .front-image {
+    background: #eee;
     border-radius: 5px 0 0 5px;
-    display: flex;
+    height: 200px;
+    width: 350px;
+
+    img {
+      border-radius: inherit;
+      height: 100%;
+      width: 100%;
+    }
   }
 
   .section {
@@ -178,7 +195,8 @@ export default {
     position: relative;
 
     .image {
-      display: flex;
+      height: 200px;
+      object-fit: cover;
       width: 100%;
     }
 

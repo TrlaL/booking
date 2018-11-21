@@ -1,12 +1,12 @@
 <template>
   <div class="activities-menu">
-    <a
-      href="#"
+    <div
+      class="item"
       v-for="(item, i) in items"
       :class="className(i)"
       :key="i"
       @click="select(i)"
-    >{{ item }}</a>
+    >{{ item }}</div>
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
     },
     select (index) {
       this.selected = index
+      this.$emit('changeItem', index)
     }
   }
 }
@@ -36,17 +37,18 @@ export default {
   .activities-menu {
     display: flex;
     padding: 15px 0 15px 0;
+    user-select: none;
 
-    a {
+    .item {
       color: #E1519F;
+      cursor: pointer;
       flex: 1;
       font-size: 22px;
       font-weight: 300;
       text-align: center;
-      text-decoration: none;
     }
 
-    a.selected {
+    .item.selected {
       font-weight: bold;
       text-decoration: underline;
     }
@@ -58,17 +60,18 @@ export default {
     background: #eee;
     border-top: 1px solid #ddd;
     display: flex;
+    user-select: none;
 
-    a {
+    .item {
       border-bottom: 2px solid transparent;
       color: #918A8C;
+      cursor: pointer;
       flex: 1;
       padding: 10px 0 10px 0;
       text-align: center;
-      text-decoration: none;
     }
 
-    a.selected {
+    .item.selected {
       border-color: #E1519F;
       color: #E1519F;
     }
