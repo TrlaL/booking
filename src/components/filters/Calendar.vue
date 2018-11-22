@@ -7,13 +7,7 @@
     </div>
     <table class="table">
       <tr>
-        <th>S</th>
-        <th>M</th>
-        <th>T</th>
-        <th>W</th>
-        <th>T</th>
-        <th>F</th>
-        <th>S</th>
+        <th :key="i" v-for="(day, i) in days">{{ day }}</th>
       </tr>
       <tr :key="i" v-for="(row, i) in calendar">
         <td :class="className(cell)" :key="j" v-for="(cell, j) in row">{{ cell }}</td>
@@ -27,6 +21,7 @@ export default {
   data () {
     return {
       calendar: [],
+      days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       month: 10,
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       year: 2018
