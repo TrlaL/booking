@@ -1,5 +1,6 @@
 <template>
-  <div class="checkbox" :class="className" @click="toggle">
+  <div class="checkbox" @click="toggle">
+    <div class="toggle" :style="style"></div>
     <slot></slot>
   </div>
 </template>
@@ -8,26 +9,41 @@
 export default {
   data () {
     return {
-      isActive: this.active
+      active: this.value
     }
   },
   computed: {
-    className () {
+    hasSlot () {
+      return this.$slots.default
+    },
+    style () {
       return {
-        'checkbox-active': this.isActive
+        background: this.active ? '#E1519F' : '#E3E0E1',
+        height: `${this.size}px`,
+        marginRight: this.hasSlot ? '10px' : 0,
+        width: `${this.size}px`
       }
     }
   },
   methods: {
     toggle () {
-      this.isActive = !this.isActive
-      this.$emit('input', this.isActive)
+      this.active = !this.active
+      this.$emit('input', this.active)
     }
   },
   props: {
-    active: {
+    size: {
+      default: '12',
+      type: String
+    },
+    value: {
       default: false,
       type: Boolean
+    }
+  },
+  watch: {
+    value (value) {
+      this.active = value
     }
   }
 }
@@ -43,17 +59,15 @@ export default {
   user-select: none;
 }
 
-.checkbox::before {
+.toggle {
   background: #E3E0E1;
   border-radius: 100%;
-  content: '';
-  display: block;
   height: 12px;
-  margin-right: 6px;
+  margin-right: 10px;
   width: 12px;
 }
 
-.checkbox-active::before {
+.toggle-active {
   background: #E1519F;
 }
 </style>

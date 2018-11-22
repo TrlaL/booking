@@ -157,6 +157,10 @@ export default {
     .icons {
       display: flex;
       justify-content: space-around;
+
+      img {
+        cursor: pointer;
+      }
     }
 
     .price,

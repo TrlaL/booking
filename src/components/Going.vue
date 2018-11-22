@@ -1,18 +1,28 @@
 <template>
   <div class="container">
     <Navigation title="I’M GOING" />
-    <GoingList />
+    <div class="box">
+      <ActivityMenu />
+      <GoingList :items="items" />
+    </div>
   </div>
 </template>
 
 <script>
-import Navigation from './common/Navigation'
+import ActivityMenu from './common/ActivityMenu'
 import GoingList from './going/GoingList'
+import Navigation from './common/Navigation'
 
 export default {
   components: {
-    Navigation,
-    GoingList
+    ActivityMenu,
+    GoingList,
+    Navigation
+  },
+  data () {
+    return {
+      items: []
+    }
   }
 }
 </script>

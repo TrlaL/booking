@@ -69,8 +69,7 @@ export default {
           activityTypeId: this.activityTypeId
         },
         pages: {
-          page: ++this.page,
-          ipp: this.itemsPerPage
+          page: ++this.page
         }
       })
     },

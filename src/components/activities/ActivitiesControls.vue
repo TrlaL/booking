@@ -7,7 +7,7 @@
         <img :src="`/static/images/${filtersArrow}`">
       </div>
       <div class="search">
-        <input v-model="query" placeholder="Try “Chess” or “Ballet”" type="text">
+        <input v-model="query" @keydown.enter="search" placeholder="Try “Chess” or “Ballet”" type="text">
         <img class="reset" @click="reset" src="/static/images/reset-input.png">
         <button @click="search">
           <img src="/static/images/search.png">
@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     reset () {
+      if (!this.query.length) return
       this.query = ''
       this.$emit('search', this.query)
     },
@@ -72,6 +73,7 @@ export default {
     display: flex;
     flex: 0 1 1;
     justify-content: space-between;
+    margin-bottom: 40px;
     max-height: 40px;
     user-select: none;
 

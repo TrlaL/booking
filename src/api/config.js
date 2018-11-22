@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const token = 'QUg3WWxyaFRMSVBlZ3l3aHJiQmZvdlNuSjE3VzNNQTBQNEJVRC8wS2NIRjNsRXdaaWNGWXl4MzNqL0tjY1J1WmVkUmxySW1ZRUc5WmdYZUVQY2tkcEE9PQ=='
+export const token = 'QlFTcmVCQmlMcC90QTJ1VE9xU0lpR0tjU2RWTy80WEZmdDMrcHNlWHNMNDdRVGp1dGVDbmJJamRxallGeUw0WXBnd1ROZUppTk9ucmxNTjBmaDZmMWc9PQ=='
 
 export let instance = axios.create({
   baseURL: 'http://dev.gobambino.com/api',

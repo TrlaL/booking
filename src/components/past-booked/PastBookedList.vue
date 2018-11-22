@@ -1,20 +1,29 @@
 <template>
-  <div class="past-booked-list box">
-    <ActivityMenu />
+  <div class="past-booked-list">
     <div class="list">
-      <Activity class="item" type="past-booked" />
+      <Activity
+        class="item"
+        type="past-booked"
+        :key="item.id"
+        :item="item"
+        v-for="item in items"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import Activity from '../common/Activity'
-import ActivityMenu from '../common/ActivityMenu'
 
 export default {
   components: {
-    Activity,
-    ActivityMenu
+    Activity
+  },
+  props: {
+    items: {
+      required: true,
+      type: Array
+    }
   }
 }
 </script>

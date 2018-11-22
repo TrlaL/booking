@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import Navigation from './common/Navigation'
 import FamilyList from './family/FamilyList'
+import Navigation from './common/Navigation'
 
 export default {
   components: {
-    Navigation,
-    FamilyList
+    FamilyList,
+    Navigation
   }
 }
 </script>

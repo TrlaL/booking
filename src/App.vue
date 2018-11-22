@@ -9,20 +9,20 @@
 </template>
 
 <script>
-import Header from './components/common/Header'
 import Footer from './components/common/Footer'
+import Header from './components/common/Header'
 import Modal from './components/common/Modal'
 
 export default {
   components: {
-    Header,
     Footer,
+    Header,
     Modal
   }
 }
 </script>
 
-<style lang="scss">
+<style>
 @import './assets/css/poppins.css';
 @import './assets/css/general.css';
 @import './assets/css/animations.css';

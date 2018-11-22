@@ -1,20 +1,29 @@
 <template>
-  <div class="going-list box">
-    <ActivityMenu />
+  <div class="going-list">
     <div class="list">
-      <Activity class="item" type="going" />
+      <Activity
+        class="item"
+        type="goint"
+        :key="item.id"
+        :item="item"
+        v-for="item in items"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import Activity from '../common/Activity'
-import ActivityMenu from '../common/ActivityMenu'
 
 export default {
   components: {
-    Activity,
-    ActivityMenu
+    Activity
+  },
+  props: {
+    items: {
+      required: true,
+      type: Array
+    }
   }
 }
 </script>

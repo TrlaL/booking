@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoading: false,
-    modalVisible: true
+    modalVisible: true,
+    openedDropDownId: 1
   },
   getters: {
     isLoading (state) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     modalVisible (state) {
       return state.modalVisible
+    },
+    openedDropDownId (state) {
+      return state.openedDropDownId
     }
   },
   mutations: {
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     },
     SET_MODAL_VISIBLE (state, visible) {
       state.modalVisible = visible
+    },
+    SET_OPENED_DROP_DOWN_ID (state, id) {
+      state.openedDropDownId = id
     }
   }
 })

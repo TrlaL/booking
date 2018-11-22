@@ -3,9 +3,9 @@
     <div class="activities">
       <Activity
         class="item"
-        :key="item.id"
+        :key="i"
         :item="item"
-        v-for="item in items"
+        v-for="(item, i) in items"
       />
     </div>
   </div>

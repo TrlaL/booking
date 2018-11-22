@@ -10,51 +10,24 @@
 
 <script>
 import ActivityMenu from './common/ActivityMenu'
-import Navigation from './common/Navigation'
 import FavoritesList from './favorites/FavoritesList'
+import Navigation from './common/Navigation'
 import { getFavorites } from '../api/favorites'
 
 export default {
   components: {
-    Navigation,
     ActivityMenu,
-    FavoritesList
+    FavoritesList,
+    Navigation
   },
   data () {
     return {
-      isLoaded: false,
-      items: [],
-      itemsPerPage: 10,
-      page: 1,
-      pagesCount: 0
+      items: []
     }
   },
-  created () {
-    this.getFavorites()
-  },
-  methods: {
-    async getFavorites (params) {
-      this.isLoaded = false
-      let response = await getFavorites(params)
-      if (response.data.result) {
-        this.isLoaded = true
-        this.items = this.items.concat(response.data.items)
-        this.pagesCount = response.data.pages.pagesCount
-      }
-    },
-    changeActivitiesType (index) {
-      this.items = []
-      this.page = 1
-      this.activityTypeId = index + 1
-      this.getFavorites({ activityTypeId: this.activityTypeId })
-    },
-    getNextPage () {
-      this.getFavorites({
-        activityTypeId: this.activityTypeId,
-        page: ++this.page,
-        ipp: this.itemsPerPage
-      })
-    }
+  async created () {
+    let response = await getFavorites()
+    console.log(response)
   }
 }
 </script>
