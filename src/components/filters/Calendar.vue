@@ -10,7 +10,9 @@
         <th :key="i" v-for="(day, i) in days">{{ day }}</th>
       </tr>
       <tr :key="i" v-for="(row, i) in calendar">
-        <td :class="className(cell)" :key="j" v-for="(cell, j) in row">{{ cell }}</td>
+        <td :class="className(cell)" :key="j" v-for="(cell, j) in row">
+          {{ cell }}
+        </td>
       </tr>
     </table>
   </div>
@@ -21,6 +23,7 @@ export default {
   data () {
     return {
       calendar: [],
+      date: 0,
       days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       month: 10,
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -33,6 +36,10 @@ export default {
     }
   },
   created () {
+    let date = new Date()
+    this.date = date.getDate()
+    this.month = date.getMonth()
+    this.year = date.getFullYear()
     this.draw()
   },
   methods: {
@@ -40,7 +47,7 @@ export default {
       let date = new Date()
       return {
         item: value,
-        selected: value === date.getDate() && this.month === date.getMonth() && this.year === date.getFullYear()
+        selected: this.date === value && this.month === date.getMonth() && this.year === date.getFullYear()
       }
     },
     draw () {
