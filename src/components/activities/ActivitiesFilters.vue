@@ -118,8 +118,18 @@ export default {
   },
   props: {
     visible: {
-      default: false,
+      required: true,
       type: Boolean
+    }
+  },
+  watch: {
+    visible (value) {
+      if (!value) return
+      let timer = setTimeout(() => {
+        this.$refs.timeSlider.refresh()
+        this.$refs.priceSlider.refresh()
+        clearTimeout(timer)
+      }, 100)
     }
   }
 }

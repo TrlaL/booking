@@ -15,7 +15,7 @@
       </div>
       <Menu />
     </div>
-    <ActivitiesFilters v-show="filters" />
+    <ActivitiesFilters :visible="filtersVisible" />
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
   },
   data () {
     return {
-      filters: false,
+      filtersVisible: false,
       query: ''
     }
   },
@@ -54,7 +54,7 @@ export default {
       this.$emit('search', this.query)
     },
     toggleFilters () {
-      this.filters = !this.filters
+      this.filtersVisible = !this.filtersVisible
     }
   }
 }

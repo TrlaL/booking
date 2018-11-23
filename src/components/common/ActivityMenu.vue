@@ -19,8 +19,8 @@ export default {
     }
   },
   computed: {
-    isLoading () {
-      return this.$store.getters.isLoading
+    itemsIsLoaded () {
+      return this.$store.getters.itemsIsLoaded
     }
   },
   methods: {
@@ -30,7 +30,7 @@ export default {
       }
     },
     select (index) {
-      if (this.isLoading) return
+      if (!this.itemsIsLoaded) return
       this.selected = index
       this.$emit('changeItem', index)
     }

@@ -6,26 +6,31 @@
 export default {
   data () {
     return {
-      isActive: this.active
+      active: this.value
     }
   },
   computed: {
     className () {
       return {
-        'switcher-active': this.isActive
+        'switcher-active': this.active
       }
     }
   },
   methods: {
     toggle () {
-      this.isActive = !this.isActive
-      this.$emit('input', this.isActive)
+      this.active = !this.active
+      this.$emit('input', this.active)
     }
   },
   props: {
-    active: {
-      default: false,
+    value: {
+      defaul: false,
       type: Boolean
+    }
+  },
+  watch: {
+    value (value) {
+      this.active = value
     }
   }
 }

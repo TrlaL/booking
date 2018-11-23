@@ -1,6 +1,6 @@
 <template>
   <div class="favorites-list">
-    <div class="list">
+    <div class="list" v-if="items.length">
       <Activity
         class="item"
         type="favorites"
@@ -9,6 +9,7 @@
         v-for="item in items"
       />
     </div>
+    <div class="empty" v-else-if="itemsIsLoaded && !items.length">It's empty here</div>
   </div>
 </template>
 
@@ -18,6 +19,11 @@ import Activity from '../common/Activity'
 export default {
   components: {
     Activity
+  },
+  computed: {
+    itemsIsLoaded () {
+      return this.$store.getters.itemsIsLoaded
+    }
   },
   props: {
     items: {
@@ -29,8 +35,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.empty {
+  padding: 10px;
+  text-align: center;
+}
+
 @include desktop {
-  .list {
+  .favorites-list {
     padding: 0 15px 15px 15px;
   }
 

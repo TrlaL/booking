@@ -1,6 +1,6 @@
 <template>
   <div class="past-booked-list">
-    <div class="list">
+    <div class="list" v-if="items.length">
       <Activity
         class="item"
         type="past-booked"
@@ -9,6 +9,7 @@
         v-for="item in items"
       />
     </div>
+    <div class="empty" v-else-if="isLoaded && !items.length">It's empty here</div>
   </div>
 </template>
 
@@ -20,6 +21,10 @@ export default {
     Activity
   },
   props: {
+    isLoaded: {
+      required: true,
+      type: Boolean
+    },
     items: {
       required: true,
       type: Array
@@ -29,8 +34,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.empty {
+  padding: 10px;
+  text-align: center;
+}
+
 @include desktop {
-  .list {
+  .past-booked-list {
     padding: 0 15px 15px 15px;
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="activities-list">
-    <div class="activities">
+    <div class="list" v-if="items.length">
       <Activity
         class="item"
         :key="i"
@@ -8,6 +8,7 @@
         v-for="(item, i) in items"
       />
     </div>
+    <div class="empty" v-else-if="itemsIsLoaded && !items.length">It's empty here</div>
   </div>
 </template>
 
@@ -17,6 +18,11 @@ import Activity from '../common/Activity'
 export default {
   components: {
     Activity
+  },
+  computed: {
+    itemsIsLoaded () {
+      return this.$store.getters.itemsIsLoaded
+    }
   },
   props: {
     items: {

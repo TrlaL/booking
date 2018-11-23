@@ -3,8 +3,8 @@
     <ActivitiesControls @search="search" />
     <ActivityMenu @changeItem="changeActivitiesType" />
     <ActivitiesList :items="items" />
-    <Loading v-show="!isLoaded" />
-    <div class="pagination" v-show="isLoaded && !isLastPage">
+    <Loading v-show="!itemsIsLoaded" />
+    <div class="pagination" v-show="itemsIsLoaded && !isLastPage">
       <button @click="getNextPage">Next Page</button>
     </div>
   </div>
@@ -15,7 +15,7 @@ import ActivitiesControls from './activities/ActivitiesControls'
 import ActivitiesList from './activities/ActivitiesList'
 import ActivityMenu from './common/ActivityMenu'
 import Loading from './common/Loading'
-import { getActivities } from '../api/activities'
+import { getActivities } from '@/api/activities'
 
 export default {
   components: {
@@ -26,7 +26,6 @@ export default {
   },
   data () {
     return {
-      isLoaded: false,
       items: [],
       itemsPerPage: 10,
       page: 1,
@@ -39,16 +38,17 @@ export default {
   computed: {
     isLastPage () {
       return this.page === this.pagesCount
+    },
+    itemsIsLoaded () {
+      return this.$store.getters.itemsIsLoaded
     }
   },
   methods: {
     async getActivities (params, query) {
-      this.$store.commit('SET_LOADING_STATUS', true)
-      this.isLoaded = false
+      this.$store.commit('SET_LOADED_STATUS', false)
       let response = await getActivities(params, query)
       if (response.data.result) {
-        this.$store.commit('SET_LOADING_STATUS', false)
-        this.isLoaded = true
+        this.$store.commit('SET_LOADED_STATUS', true)
         this.items = this.items.concat(response.data.items)
         this.pagesCount = response.data.pages.pagesCount
       }

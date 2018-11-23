@@ -2,8 +2,8 @@
   <div class="container">
     <Navigation title="PAST BOOKED" />
     <div class="box">
-      <ActivityMenu />
-      <PastBookedList :items="items" />
+      <ActivityMenu :isLoaded="isLoaded" />
+      <PastBookedList :isLoaded="isLoaded" :items="items" />
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
   },
   data () {
     return {
+      isLoaded: true,
       items: []
     }
   }
