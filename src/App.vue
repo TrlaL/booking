@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style>
-@import './assets/css/poppins.css';
-@import './assets/css/general.css';
-@import './assets/css/animations.css';
+@import './assets/scss/poppins.scss';
+@import './assets/scss/general.scss';
+@import './assets/scss/animations.scss';
 </style>

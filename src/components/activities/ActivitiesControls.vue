@@ -130,7 +130,9 @@ export default {
 }
 
 @include mobile {
-  .activities-controls {
+  .filters,
+  .search,
+  .menu {
     display: none;
   }
 }

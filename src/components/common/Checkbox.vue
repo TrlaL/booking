@@ -66,8 +66,4 @@ export default {
   margin-right: 10px;
   width: 12px;
 }
-
-.toggle-active {
-  background: #E1519F;
-}
 </style>

@@ -5,13 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    itemsIsLoaded: true,
+    isLoadedItems: true,
     modalVisible: true,
     openedDropDownId: 1
   },
   getters: {
-    itemsIsLoaded (state) {
-      return state.itemsIsLoaded
+    isLoadedItems (state) {
+      return state.isLoadedItems
     },
     modalVisible (state) {
       return state.modalVisible
@@ -22,7 +22,7 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_LOADED_STATUS (state, status) {
-      state.itemsIsLoaded = status
+      state.isLoadedItems = status
     },
     SET_MODAL_VISIBLE (state, visible) {
       state.modalVisible = visible

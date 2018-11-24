@@ -178,4 +178,15 @@ export default {
     }
   }
 }
+
+@include mobile {
+  .activities-filters {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .column {
+    margin: 0 0 40px 0;
+  }
+}
 </style>

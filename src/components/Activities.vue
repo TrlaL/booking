@@ -3,8 +3,8 @@
     <ActivitiesControls @search="search" />
     <ActivityMenu @changeItem="changeActivitiesType" />
     <ActivitiesList :items="items" />
-    <Loading v-show="!itemsIsLoaded" />
-    <div class="pagination" v-show="itemsIsLoaded && !isLastPage">
+    <Loading v-show="!isLoadedItems" />
+    <div class="pagination" v-show="isLoadedItems && !isLastPage">
       <button @click="getNextPage">Next Page</button>
     </div>
   </div>
@@ -39,8 +39,8 @@ export default {
     isLastPage () {
       return this.page === this.pagesCount
     },
-    itemsIsLoaded () {
-      return this.$store.getters.itemsIsLoaded
+    isLoadedItems () {
+      return this.$store.getters.isLoadedItems
     }
   },
   methods: {

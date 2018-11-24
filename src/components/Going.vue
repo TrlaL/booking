@@ -4,7 +4,7 @@
     <div class="box">
       <ActivityMenu />
       <GoingList :items="items" />
-      <Loading v-show="!itemsIsLoaded" />
+      <Loading v-show="!isLoadedItems" />
     </div>
   </div>
 </template>
@@ -23,8 +23,8 @@ export default {
     Navigation
   },
   computed: {
-    itemsIsLoaded () {
-      return this.$store.getters.itemsIsLoaded
+    isLoadedItems () {
+      return this.$store.getters.isLoadedItems
     }
   },
   data () {

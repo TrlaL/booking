@@ -9,7 +9,7 @@
         v-for="item in items"
       />
     </div>
-    <div class="empty" v-else-if="isLoaded && !items.length">It's empty here</div>
+    <div class="empty" v-else-if="isLoadedItems && !items.length">It's empty here</div>
   </div>
 </template>
 
@@ -20,11 +20,12 @@ export default {
   components: {
     Activity
   },
+  computed: {
+    isLoadedItems () {
+      return this.$store.getters.isLoadedItems
+    }
+  },
   props: {
-    isLoaded: {
-      required: true,
-      type: Boolean
-    },
     items: {
       required: true,
       type: Array

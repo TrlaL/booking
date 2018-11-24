@@ -2,8 +2,9 @@
   <div class="container">
     <Navigation title="PAST BOOKED" />
     <div class="box">
-      <ActivityMenu :isLoaded="isLoaded" />
-      <PastBookedList :isLoaded="isLoaded" :items="items" />
+      <ActivityMenu />
+      <PastBookedList :items="items" />
+      <Loading v-show="!isLoadedItems" />
     </div>
   </div>
 </template>
@@ -11,17 +12,23 @@
 <script>
 import ActivityMenu from './common/ActivityMenu'
 import Navigation from './common/Navigation'
+import Loading from './common/Loading'
 import PastBookedList from './past-booked/PastBookedList'
 
 export default {
   components: {
     ActivityMenu,
     Navigation,
+    Loading,
     PastBookedList
+  },
+  computed: {
+    isLoadedItems () {
+      return this.$store.getters.isLoadedItems
+    }
   },
   data () {
     return {
-      isLoaded: true,
       items: []
     }
   }

@@ -12,7 +12,7 @@ export default {
   computed: {
     className () {
       return {
-        'switcher-active': this.active
+        active: this.active
       }
     }
   },
@@ -56,11 +56,11 @@ export default {
   width: 12px;
 }
 
-.switcher-active {
+.active {
   background: #9BE151;
 }
 
-.switcher-active::after {
+.active::after {
   position: absolute;
   right: 5px;
 }
