@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import ActivityMenu from './common/ActivityMenu'
-import FavoritesList from './favorites/FavoritesList'
-import Loading from './common/Loading'
-import Navigation from './common/Navigation'
+import ActivityMenu from '@/components/common/ActivityMenu'
+import FavoritesList from '@/components/favorites/FavoritesList'
+import Loading from '@/components/common/Loading'
+import Navigation from '@/components/common/Navigation'
 import { getFavorites } from '@/api/favorites'
 
 export default {

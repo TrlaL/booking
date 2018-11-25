@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Booking from './booking/Booking'
+import Booking from '@/components/booking/Booking'
 
 export default {
   components: {

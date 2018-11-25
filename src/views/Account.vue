@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Account from './account/Account'
-import Navigation from './common/Navigation'
+import Account from '@/components/account/Account'
+import Navigation from '@/components/common/Navigation'
 
 export default {
   components: {

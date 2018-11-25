@@ -1,10 +1,10 @@
-import Account from '@/components/Account'
-import Activities from '@/components/Activities'
-import Booking from '@/components/Booking'
-import Family from '@/components/Family'
-import Favorites from '@/components/Favorites'
-import Going from '@/components/Going'
-import PastBooked from '@/components/PastBooked'
+import Account from '@/views/Account'
+import Activities from '@/views/Activities'
+import Booking from '@/views/Booking'
+import Family from '@/views/Family'
+import Favorites from '@/views/Favorites'
+import Going from '@/views/Going'
+import PastBooked from '@/views/PastBooked'
 
 export default [
   {

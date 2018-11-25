@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Family from './family/Family'
-import Navigation from './common/Navigation'
+import Family from '@/components/family/Family'
+import Navigation from '@/components/common/Navigation'
 
 export default {
   components: {

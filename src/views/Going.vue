@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import ActivityMenu from './common/ActivityMenu'
-import GoingList from './going/GoingList'
-import Loading from './common/Loading'
-import Navigation from './common/Navigation'
+import ActivityMenu from '@/components/common/ActivityMenu'
+import GoingList from '@/components/going/GoingList'
+import Loading from '@/components/common/Loading'
+import Navigation from '@/components/common/Navigation'
 
 export default {
   components: {

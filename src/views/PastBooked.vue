@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import ActivityMenu from './common/ActivityMenu'
-import Navigation from './common/Navigation'
-import Loading from './common/Loading'
-import PastBookedList from './past-booked/PastBookedList'
+import ActivityMenu from '@/components/common/ActivityMenu'
+import Navigation from '@/components/common/Navigation'
+import Loading from '@/components/common/Loading'
+import PastBookedList from '@/components/past-booked/PastBookedList'
 
 export default {
   components: {

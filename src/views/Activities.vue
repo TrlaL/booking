@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import ActivitiesControls from './activities/ActivitiesControls'
-import ActivitiesList from './activities/ActivitiesList'
-import ActivityMenu from './common/ActivityMenu'
-import Loading from './common/Loading'
+import ActivitiesControls from '@/components/activities/ActivitiesControls'
+import ActivitiesList from '@/components/activities/ActivitiesList'
+import ActivityMenu from '@/components/common/ActivityMenu'
+import Loading from '@/components/common/Loading'
 import { getActivities } from '@/api/activities'
 
 export default {
