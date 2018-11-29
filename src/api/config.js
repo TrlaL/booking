@@ -5,7 +5,6 @@ export const token = 'alpvOUtFOHRxR29kTlVDUmliSnhaeSt0aXk1TU85VWh4TlhJaUVKbkptWG
 export const instance = axios.create({
   baseURL: 'http://dev.gobambino.com/api',
   headers: {
-    'Access-control-allow-origin': '*',
     'Content-Type': 'application/json'
   }
 })

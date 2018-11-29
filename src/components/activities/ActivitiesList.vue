@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .activities {
+  .activities-list {
     padding: 0 15px 15px 15px;
   }
 

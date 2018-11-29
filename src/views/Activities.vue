@@ -4,7 +4,7 @@
     <ActivityMenu @changeItem="changeActivitiesType" />
     <ActivitiesList :items="items" />
     <Loading v-show="!isLoadedItems" />
-    <div class="pagination" v-show="isLoadedItems && !isLastPage">
+    <div class="pagination" v-show="paginationVisible">
       <button @click="getNextPage">Next Page</button>
     </div>
   </div>
@@ -32,16 +32,19 @@ export default {
       pagesCount: 0
     }
   },
-  created () {
-    this.getActivities()
-  },
   computed: {
     isLastPage () {
       return this.page === this.pagesCount
     },
     isLoadedItems () {
       return this.$store.getters.isLoadedItems
+    },
+    paginationVisible () {
+      return this.isLoadedItems && this.items.length && !this.isLastPage
     }
+  },
+  created () {
+    this.getActivities()
   },
   methods: {
     async getActivities (params, query) {

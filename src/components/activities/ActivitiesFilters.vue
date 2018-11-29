@@ -1,54 +1,80 @@
 <template>
   <transition name="fade">
     <div class="activities-filters" v-show="visible">
-      <div class="column">
-        <div class="filter">
-          <div class="title">When would you like to go?</div>
-          <Calendar />
-        </div>
-        <div class="filter">
-          <div class="line">
-            <div>{{ time[0] | translateHour }}</div>
-            <div>{{ time[1] | translateHour }}</div>
+      <div class="columns">
+        <div class="column">
+          <div class="filter">
+            <div class="title">When would you like to go?</div>
+            <Calendar @setDate="setDate" />
           </div>
-          <Slider ref="timeSlider" v-bind="timeSliderOptions" v-model="time" />
+          <div class="filter">
+            <div class="line">
+              <div>{{ time[0] | translateHour }}</div>
+              <div>{{ time[1] | translateHour }}</div>
+            </div>
+            <Slider ref="timeSlider" v-bind="timeSliderOptions" v-model="time" />
+          </div>
+          <div class="filter">
+            <div class="title">Select activity type(s):</div>
+            <div class="line">
+              Academic / Educational
+              <Checkbox size="20" v-model="activitiesTypes[0]" />
+            </div>
+            <div class="line">
+              Creative / Artistic
+              <Checkbox size="20" :value="activitiesTypes[1]" />
+            </div>
+            <div class="line">
+              Physical / Athletic
+              <Checkbox size="20" :value="activitiesTypes[2]" />
+            </div>
+            <div class="line">
+              Entertainment
+              <Checkbox size="20" :value="activitiesTypes[3]" />
+            </div>
+          </div>
         </div>
-        <div class="filter">
-          <div class="title">Select activity type(s):</div>
-          <div class="line" :key="i" v-for="(activity, i) in activities">
-            {{ activity }}
-            <Checkbox size="20" :value="true" />
+        <div class="column">
+          <div class="filter">
+            <div class="title">Kid(s) age?</div>
+            <Table @setItem="setItem" />
+          </div>
+          <div class="filter">
+            <div class="title">Price:</div>
+            <div class="line">
+              <div>${{ price[0] }}</div>
+              <div>${{ price[1] }}</div>
+            </div>
+            <Slider ref="priceSlider" v-bind="priceSliderOptions" v-model="price" />
+          </div>
+          <div class="filter">
+            <div class="title">Additional filters:</div>
+            <div class="line">
+              Caregiver must be present
+              <Checkbox size="20" v-model="additional[0]" />
+            </div>
+            <div class="line">
+              Sleepaway camps only
+              <Checkbox size="20" v-model="additional[1]" />
+            </div>
+            <div class="line">
+              Weekend activities only
+              <Checkbox size="20" v-model="additional[2]" />
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="filter">
+            <div class="title">Select location/ neighborhood(s):</div>
+            <DropDownList title="Manhattan" :id="1" :opened="true" :items="[1, 2, 3, 4, 5]" />
+            <DropDownList title="Brooklyn" :id="2" :items="[1, 2, 3, 4, 5, 6]" />
+            <DropDownList title="Queens" :id="3" :items="[1, 2, 3, 4]" />
           </div>
         </div>
       </div>
-      <div class="column">
-        <div class="filter">
-          <div class="title">Kid(s) age?</div>
-          <Table />
-        </div>
-        <div class="filter">
-          <div class="title">Price:</div>
-          <div class="line">
-            <div>${{ price[0] }}</div>
-            <div>${{ price[1] }}</div>
-          </div>
-          <Slider ref="priceSlider" v-bind="priceSliderOptions" v-model="price" />
-        </div>
-        <div class="filter">
-          <div class="title">Additional filters:</div>
-          <div class="line" :key="i" v-for="(item, i) in additional">
-            {{ item }}
-            <Checkbox size="20" />
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="filter">
-          <div class="title">Select location/ neighborhood(s):</div>
-          <DropDownList title="Manhattan" :id="1" :opened="true" :items="[1, 2, 3, 4, 5]" />
-          <DropDownList title="Brooklyn" :id="2" :items="[1, 2, 3, 4, 5, 6]" />
-          <DropDownList title="Queens" :id="3" :items="[1, 2, 3, 4]" />
-        </div>
+      <div class="buttons">
+        <button>Apply</button>
+        <a>Cancel</a>
       </div>
     </div>
   </transition>
@@ -71,8 +97,9 @@ export default {
   },
   data () {
     return {
-      activities: ['Academic / Educational', 'Creative / Artistic', 'Physical / Athletic', 'Entertainment'],
-      additional: ['Caregiver must be present', 'Sleepaway camps only', 'Weekend activities only'],
+      activitiesTypes: [true, true, true, true],
+      additional: [false, false, false],
+      date: null,
       price: [0, 200],
       time: [8, 20],
       sliderOptions: {
@@ -116,6 +143,14 @@ export default {
       return hour
     }
   },
+  methods: {
+    setDate (date) {
+      this.date = date
+    },
+    setItem (item) {
+      this.item = item
+    }
+  },
   props: {
     visible: {
       required: true,
@@ -136,10 +171,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.activities-filters {
+.columns {
   background: #fff;
   display: flex;
-  margin-bottom: 40px;
   user-select: none;
 }
 
@@ -179,8 +213,30 @@ export default {
   }
 }
 
+.buttons {
+  margin-bottom: 20px;
+
+  button {
+    background: #D9429F;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 30px;
+    padding: 15px 40px 15px 40px;
+  }
+
+  a {
+    color: #828282;
+    cursor: pointer;
+    font-size: 15px;
+    text-decoration: underline;
+  }
+}
+
 @include mobile {
-  .activities-filters {
+  .columns {
     flex-direction: column;
     padding: 20px;
   }

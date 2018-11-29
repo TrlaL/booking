@@ -1,7 +1,7 @@
 <template>
   <div class="table">
-    <div class="row" :key="i" v-for="(row, i) in rows">
-      <div class="item" :key="j" v-for="(item, j) in row">
+    <div class="row" v-for="(row, i) in rows" :key="i">
+      <div class="item" v-for="(item, j) in row" :key="j" @click="setItem(item)">
         {{ item }}
       </div>
     </div>
@@ -18,6 +18,11 @@ export default {
         ['8', '9', '10', '11'],
         ['12', '13', '14+', 'Caregivers']
       ]
+    }
+  },
+  methods: {
+    setItem (item) {
+      this.$emit('setItem', item)
     }
   }
 }

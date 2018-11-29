@@ -7,10 +7,10 @@
       <div class="section">
         <div class="title">{{ item.name }}</div>
         <div class="table">
-          <span>Tuesday, March 30th</span>
-          <span>Ages: 3 months - 1 year</span>
+          <span>{{ item.startDateTime }}</span>
+          <span>Ages: {{ ageFrom }} - {{ ageTo }}</span>
           <span>Time: 9.00 am  - 10.00 am</span>
-          <span>Provided by: Citibabes</span>
+          <span>Provided by: <u class="bold">{{ item.merchantName }}</u></span>
         </div>
         <div class="place">
           <img class="icon" src="/static/images/place.png">
@@ -20,24 +20,27 @@
       <div class="controls">
         <div class="icons">
           <img src="/static/images/share.png">
-          <img :src="favoriteIcon">
+          <img @click="toggleFavorite" :src="favoriteIcon">
         </div>
         <div class="price">${{ item.price }}</div>
         <router-link class="book" to="/booking">Book</router-link>
         <div class="seats">Seats Left: 3</div>
       </div>
     </div>
+
     <div class="mobile-content">
       <div class="front">
         <img class="image" :src="frontImage">
-        <div class="provided">Provided by: Citibabes</div>
+        <div class="provided">Provided by: {{ item.merchantName }}</div>
         <div class="date">Friday, August 31st<br>3:00PM to 4pm</div>
-        <div class="price">${{ item.price }}</div>
+        <router-link class="book" to="/booking">
+          <div class="price">${{ item.price }}</div>
+        </router-link>
       </div>
       <div class="section">
         <div class="info">
           <div class="title">{{ item.name }}</div>
-          <div>Ages: 3 months - 1 year</div>
+          <div>Ages: {{ ageFrom }} - {{ ageTo }}</div>
           <div>Seats left: 3</div>
         </div>
         <div class="arrow">
@@ -51,7 +54,7 @@
         </div>
         <div class="icons">
           <img src="/static/images/share.png">
-          <img :src="favoriteIcon">
+          <img @click="toggleFavorite" :src="favoriteIcon">
         </div>
       </div>
     </div>
@@ -59,6 +62,8 @@
 </template>
 
 <script>
+import { setFavorite, unsetFavorite } from '@/api/favorites'
+
 export default {
   data () {
     return {
@@ -67,10 +72,33 @@ export default {
   },
   computed: {
     favoriteIcon () {
-      return `${this.imagesPath}${this.type === 'favorites' ? 'my-favorite.png' : 'favorite.png'}`
+      return `${this.imagesPath}${this.item.isFavorite ? 'my-favorite.png' : 'favorite.png'}`
     },
     frontImage () {
       return this.item.photos ? this.item.photos[0] : ''
+    },
+    ageFrom () {
+      return this.item.ageMonthFrom ? this.item.ageMonthFrom + ' months' : this.item.ageFrom + ' year'
+    },
+    ageTo () {
+      return this.item.ageMonthTo ? this.item.ageMonthTo + ' months' : this.item.ageTo + ' year'
+    }
+  },
+  methods: {
+    toggleFavorite () {
+      if (this.item.isFavorite) {
+        this.unsetFavorite()
+      } else {
+        this.setFavorite()
+      }
+    },
+    setFavorite () {
+      this.item.isFavorite = true
+      setFavorite(this.item.id, null)
+    },
+    unsetFavorite () {
+      this.item.isFavorite = false
+      unsetFavorite(this.item.id, null)
     }
   },
   props: {
@@ -79,7 +107,7 @@ export default {
       type: Object
     },
     type: {
-      default: 'activitie',
+      default: 'activity',
       type: String
     }
   }
@@ -106,6 +134,11 @@ export default {
       height: 100%;
       width: 100%;
     }
+  }
+
+  .bold {
+    font-weight: bold;
+    margin-left: 5px;
   }
 
   .section {

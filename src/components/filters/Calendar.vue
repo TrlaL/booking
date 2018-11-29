@@ -7,10 +7,10 @@
     </div>
     <table class="table">
       <tr>
-        <th :key="i" v-for="(day, i) in days">{{ day }}</th>
+        <th v-for="(day, i) in days" :key="i">{{ day }}</th>
       </tr>
-      <tr :key="i" v-for="(row, i) in calendar">
-        <td :class="className(cell)" :key="j" v-for="(cell, j) in row">
+      <tr v-for="(row, i) in calendar" :key="i">
+        <td v-for="(cell, j) in row" :class="className(cell)" :key="j" @click="setDate(cell)">
           {{ cell }}
         </td>
       </tr>
@@ -73,6 +73,10 @@ export default {
       this.month = (this.month === 0) ? this.months.length - 1 : this.month - 1
       this.year = (this.month === this.months.length - 1) ? this.year - 1 : this.year
       this.draw()
+    },
+    setDate (date) {
+      let target = new Date(this.year, this.month, date)
+      this.$emit('setDate', target.getTime())
     }
   }
 }

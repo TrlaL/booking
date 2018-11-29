@@ -4,9 +4,9 @@
       <Activity
         class="item"
         type="favorites"
-        :key="item.id"
+        v-for="(item, i) in items"
+        :key="i"
         :item="item"
-        v-for="item in items"
       />
     </div>
     <div class="empty" v-else-if="isLoadedItems && !items.length">It's empty here</div>
