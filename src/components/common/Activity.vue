@@ -24,7 +24,7 @@
         </div>
         <div class="price">${{ item.price }}</div>
         <router-link class="book" to="/booking">Book</router-link>
-        <div class="seats">Seats Left: 3</div>
+        <div class="seats">Seats Left: {{ seatsLeft }}</div>
       </div>
     </div>
 
@@ -82,7 +82,16 @@ export default {
     },
     ageTo () {
       return this.item.ageMonthTo ? this.item.ageMonthTo + ' months' : this.item.ageTo + ' year'
+    },
+    seatsLeft () {
+      // let date = new Date(this.item.startDateTime)
+      // let format = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      // let spot = this.item.activityTypeId === 1 ? this.item.leftSpots.find(item => item.date === format) : this.item.leftSpots[0]
+      return 0
     }
+  },
+  created () {
+    console.log(this.item)
   },
   methods: {
     toggleFavorite () {

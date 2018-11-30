@@ -1,5 +1,5 @@
 import { instance } from './config'
 
-export function getActivities (params = {}, query = '') {
-  return instance.put(`/activities/list?query=${query}`, params)
+export function getActivities (data = {}, query = '') {
+  return instance.put(`/activities/list?query=${query}`, data)
 }

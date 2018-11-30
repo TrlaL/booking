@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoadedItems: true,
-    modalVisible: true,
+    modalVisible: false,
     openedDropDownId: 1
   },
   getters: {

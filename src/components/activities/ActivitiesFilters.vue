@@ -244,5 +244,19 @@ export default {
   .column {
     margin: 0 0 40px 0;
   }
+
+  .buttons {
+    align-items: center;
+    display: flex;
+    margin: 20px;
+
+    a, button {
+      display: block;
+      flex: 1;
+      margin: 0;
+      padding: 10px 0 10px 0;
+      text-align: center;
+    }
+  }
 }
 </style>

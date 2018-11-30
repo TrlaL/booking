@@ -11,13 +11,11 @@
 <script>
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
-import Modal from './components/common/Modal'
 
 export default {
   components: {
     Footer,
-    Header,
-    Modal
+    Header
   }
 }
 </script>
