@@ -14,10 +14,16 @@ export function getFamilyMembers () {
   return instance.get('/profile/family-members')
 }
 
-export function saveChild (fullName, birthDate) {
-  return instance.put('/profile/save-child', { fullName, birthDate })
+export function saveAdult (data) {
+  return instance.put('/profile/save-adult', data)
 }
 
-export function deleteChild (id) {
-  return instance.delete('/profile/delete-child', { id })
+export function saveChild (data) {
+  return instance.put('/profile/save-child', data)
+}
+
+export function deleteFamilyMember (id) {
+  return instance.delete('/profile/delete-family-member', {
+    data: { id }
+  })
 }
