@@ -26,6 +26,7 @@ export default {
   },
   data () {
     return {
+      activityTypeId: 1,
       items: [],
       itemsPerPage: 10,
       page: 1,
@@ -33,6 +34,9 @@ export default {
     }
   },
   computed: {
+    filters () {
+      return this.$store.getters.filters
+    },
     isLastPage () {
       return this.page === this.pagesCount
     },
@@ -62,7 +66,8 @@ export default {
       this.activityTypeId = index + 1
       this.getActivities({
         filters: {
-          activityTypeId: this.activityTypeId
+          activityTypeId: this.activityTypeId,
+          ...this.filters
         }
       })
     },
@@ -84,6 +89,18 @@ export default {
           activityTypeId: this.activityTypeId
         }
       }, value)
+    }
+  },
+  watch: {
+    filters (filters) {
+      this.items = []
+      this.page = 1
+      this.getActivities({
+        filters: {
+          activityTypeId: this.activityTypeId,
+          ...filters
+        }
+      })
     }
   }
 }

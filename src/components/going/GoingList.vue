@@ -3,7 +3,7 @@
     <div class="list" v-if="items.length">
       <Activity
         class="item"
-        type="goint"
+        type="going"
         :key="item.id"
         :item="item"
         v-for="item in items"
@@ -36,6 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .empty {
+  background: #fff !important;
   padding: 10px;
   text-align: center;
 }

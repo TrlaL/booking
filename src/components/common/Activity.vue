@@ -90,9 +90,6 @@ export default {
       return 0
     }
   },
-  created () {
-    console.log(this.item)
-  },
   methods: {
     toggleFavorite () {
       if (this.item.isFavorite) {

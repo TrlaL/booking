@@ -23,6 +23,8 @@ export default {
   data () {
     return {
       calendar: [],
+      clicked: '',
+      currentDate: new Date(),
       date: 0,
       days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       month: 10,
@@ -44,8 +46,10 @@ export default {
   },
   methods: {
     className (value) {
-      let date = new Date()
+      let date = this.currentDate
+      let string = `${this.year}-${this.month}-${value}`
       return {
+        clicked: this.clicked === string,
         item: value,
         selected: this.date === value && this.month === date.getMonth() && this.year === date.getFullYear()
       }
@@ -75,8 +79,20 @@ export default {
       this.draw()
     },
     setDate (date) {
-      let target = new Date(this.year, this.month, date)
-      this.$emit('setDate', target.getTime())
+      let string = `${this.year}-${this.month}-${date}`
+      this.clicked = (this.clicked === string) ? '' : string
+      this.$emit('input', this.clicked)
+    }
+  },
+  props: {
+    value: {
+      default: '',
+      type: String
+    }
+  },
+  watch: {
+    value (val) {
+      this.clicked = val
     }
   }
 }
@@ -111,14 +127,25 @@ export default {
     font-weight: 550;
   }
 
+  td:hover {
+    background: #eee;
+    border-radius: 30px;
+  }
+
+  .clicked {
+    background: #D9429F !important;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: bold;
+  }
+
   .item {
     cursor: pointer;
   }
 
   .selected {
-    background: #D9429F;
+    background: #eee;
     border-radius: 30px;
-    color: #fff;
     font-weight: bold;
   }
 }

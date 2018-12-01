@@ -34,3 +34,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@include mobile {
+  .container,
+  .box {
+    all: unset;
+  }
+}
+</style>

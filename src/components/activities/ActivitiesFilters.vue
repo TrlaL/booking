@@ -5,14 +5,14 @@
         <div class="column">
           <div class="filter">
             <div class="title">When would you like to go?</div>
-            <Calendar @setDate="setDate" />
+            <Calendar v-model="date" />
           </div>
           <div class="filter">
             <div class="line">
-              <div>{{ time[0] | translateHour }}</div>
-              <div>{{ time[1] | translateHour }}</div>
+              <div>{{ translateHour(time[0]) }}</div>
+              <div>{{ translateHour(time[1]) }}</div>
             </div>
-            <Slider ref="timeSlider" v-bind="timeSliderOptions" v-model="time" />
+            <Slider ref="timeSlider" v-bind="timeSliderOptions" v-model="time" @callback="setTime" />
           </div>
           <div class="filter">
             <div class="title">Select activity type(s):</div>
@@ -22,22 +22,22 @@
             </div>
             <div class="line">
               Creative / Artistic
-              <Checkbox size="20" :value="activitiesTypes[1]" />
+              <Checkbox size="20" v-model="activitiesTypes[1]" />
             </div>
             <div class="line">
               Physical / Athletic
-              <Checkbox size="20" :value="activitiesTypes[2]" />
+              <Checkbox size="20" v-model="activitiesTypes[2]" />
             </div>
             <div class="line">
               Entertainment
-              <Checkbox size="20" :value="activitiesTypes[3]" />
+              <Checkbox size="20" v-model="activitiesTypes[3]" />
             </div>
           </div>
         </div>
         <div class="column">
           <div class="filter">
             <div class="title">Kid(s) age?</div>
-            <Table @setItem="setItem" />
+            <AgesTable v-model="age" />
           </div>
           <div class="filter">
             <div class="title">Price:</div>
@@ -45,7 +45,7 @@
               <div>${{ price[0] }}</div>
               <div>${{ price[1] }}</div>
             </div>
-            <Slider ref="priceSlider" v-bind="priceSliderOptions" v-model="price" />
+            <Slider ref="priceSlider" v-bind="priceSliderOptions" v-model="price" @callback="setPrice" />
           </div>
           <div class="filter">
             <div class="title">Additional filters:</div>
@@ -73,33 +73,35 @@
         </div>
       </div>
       <div class="buttons">
-        <button>Apply</button>
-        <a>Cancel</a>
+        <button @click="apply">Apply</button>
+        <a @click="cancel">Cancel</a>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import AgesTable from '../filters/AgesTable'
 import Checkbox from '../common/Checkbox'
 import Calendar from '../filters/Calendar'
 import DropDownList from '../filters/DropDownList'
 import Slider from 'vue-slider-component'
-import Table from '../filters/Table'
 
 export default {
   components: {
+    AgesTable,
     Checkbox,
     Calendar,
     DropDownList,
-    Slider,
-    Table
+    Slider
   },
   data () {
     return {
+      filters: {},
       activitiesTypes: [true, true, true, true],
       additional: [false, false, false],
-      date: null,
+      age: 0,
+      date: '',
       price: [0, 200],
       time: [8, 20],
       sliderOptions: {
@@ -133,7 +135,20 @@ export default {
       }
     }
   },
-  filters: {
+  methods: {
+    apply () {
+      this.$emit('close', true)
+      this.$store.commit('SET_FILTERS', this.filters)
+    },
+    cancel () {
+      this.filters = {}
+      this.date = ''
+      this.age = 0
+      this.price = [0, 200]
+      this.time = [8, 20]
+      this.$emit('close', true)
+      this.$store.commit('SET_FILTERS', {})
+    },
     translateHour (hour) {
       if (hour >= 12 && hour <= 23) {
         hour = (hour - 12 === 0) ? 12 + 'AM' : hour - 12 + 'PM'
@@ -141,14 +156,14 @@ export default {
         hour = hour + 'AM'
       }
       return hour
-    }
-  },
-  methods: {
-    setDate (date) {
-      this.date = date
     },
-    setItem (item) {
-      this.item = item
+    setPrice () {
+      this.filters.priceFrom = this.price[0]
+      this.filters.priceTo = this.price[1]
+    },
+    setTime () {
+      this.filters.timeStartFrom = this.translateHour(this.time[0])
+      this.filters.timeStartTo = this.translateHour(this.time[1])
     }
   },
   props: {
@@ -158,6 +173,19 @@ export default {
     }
   },
   watch: {
+    activitiesTypes (types) {
+      this.filters.categories = []
+      types.forEach((selected, i) => {
+        if (selected) this.filters.categories.push(i + 1)
+      })
+    },
+    age (value) {
+      this.filters.ages = {}
+      this.filters.ages.ageTo = value
+    },
+    date (value) {
+      this.filters.scheduleFrom = value
+    },
     visible (value) {
       if (!value) return
       let timer = setTimeout(() => {

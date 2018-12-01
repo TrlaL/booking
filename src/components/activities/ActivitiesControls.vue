@@ -15,7 +15,7 @@
       </div>
       <Menu />
     </div>
-    <ActivitiesFilters :visible="filtersVisible" />
+    <ActivitiesFilters :visible="filtersVisible" @close="filtersVisible = false" />
   </div>
 </template>
 

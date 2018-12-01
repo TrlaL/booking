@@ -7,7 +7,7 @@ export function loadUserSettings () {
 }
 
 export function saveUserSettings (data) {
-  return instance.put('/profile/save1', data)
+  return instance.put('/profile/save', data)
 }
 
 export function getFamilyMembers () {
@@ -19,5 +19,5 @@ export function saveChild (fullName, birthDate) {
 }
 
 export function deleteChild (id) {
-  return instance.delete('/profile/delete-family-member', { id })
+  return instance.delete('/profile/delete-child', { id })
 }

@@ -36,6 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .empty {
+  background: #fff !important;
   padding: 10px;
   text-align: center;
 }

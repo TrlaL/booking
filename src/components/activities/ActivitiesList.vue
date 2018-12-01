@@ -66,7 +66,7 @@ export default {
 }
 
 .empty {
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 }
 </style>

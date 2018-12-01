@@ -24,7 +24,7 @@ export default {
   },
   props: {
     value: {
-      defaul: false,
+      default: false,
       type: Boolean
     }
   },

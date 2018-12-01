@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    filters: {},
     isLoadedItems: true,
     modalVisible: false,
     openedDropDownId: 1
   },
   getters: {
+    filters (state) {
+      return state.filters
+    },
     isLoadedItems (state) {
       return state.isLoadedItems
     },
@@ -21,6 +25,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    SET_FILTERS (state, filters) {
+      state.filters = { ...filters }
+    },
     SET_LOADED_STATUS (state, status) {
       state.isLoadedItems = status
     },

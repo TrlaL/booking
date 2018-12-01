@@ -1,6 +1,6 @@
 <template>
   <div class="container box">
-    <Modal title="Alert">Settings have been saved</Modal>
+    <Modal class="center" title="Alert">Settings have been saved</Modal>
     <div class="section">
       <div class="title">My account</div>
       <div class="block">
@@ -104,6 +104,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.center {
+  text-align: center;
+}
+
 @include desktop {
   .container {
     padding: 25px 0 25px 0;
