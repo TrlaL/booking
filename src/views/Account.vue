@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <Navigation title="MY ACCOUNT" />
-    <Account />
+    <AccountMain />
   </div>
 </template>
 
 <script>
-import Account from '@/components/account/Account'
+import AccountMain from '@/components/account/AccountMain'
 import Navigation from '@/components/common/Navigation'
 
 export default {
   components: {
-    Account,
+    AccountMain,
     Navigation
   }
 }

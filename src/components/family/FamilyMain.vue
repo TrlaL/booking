@@ -26,9 +26,10 @@
             </template>
           </div>
         </div>
+        <Loading v-show="!isLoaded" />
       </div>
-      <div class="empty" v-show="!kids.length">You have not added children yet.</div>
-      <div class="add">
+      <div class="empty" v-show="isLoaded && !kids.length">You have not added children yet.</div>
+      <div class="add" v-show="isLoaded">
         <a @click="addPerson('kid')">+ Add Kid</a>
       </div>
     </div>
@@ -63,8 +64,9 @@
           </div>
         </div>
       </div>
-      <div class="empty" v-show="!caregivers.length">You have not added caregivers yet.</div>
-      <div class="add">
+      <Loading v-show="!isLoaded" />
+      <div class="empty" v-show="isLoaded && !caregivers.length">You have not added caregivers yet.</div>
+      <div class="add" v-show="isLoaded">
         <a @click="addPerson('caregiver')">+ Add Caregiver</a>
       </div>
     </div>
@@ -72,7 +74,12 @@
 </template>
 
 <script>
+import Loading from '@/components/common/Loading'
+
 export default {
+  components: {
+    Loading
+  },
   computed: {
     caregivers () {
       return this.members.filter(member => !member.isChild)
@@ -93,6 +100,10 @@ export default {
     }
   },
   props: {
+    isLoaded: {
+      required: true,
+      type: Boolean
+    },
     members: {
       required: true,
       type: Array
@@ -190,6 +201,10 @@ export default {
         flex-shrink: 0;
         padding: 8px 0 8px 0;
         width: 90px;
+      }
+
+      img {
+        cursor: pointer;
       }
     }
   }
@@ -319,6 +334,8 @@ export default {
   }
 
   .add {
+    border-top: 1px solid #ddd;
+    background: #eee;
     color: #E1519F;
     cursor: pointer;
     text-align: center;

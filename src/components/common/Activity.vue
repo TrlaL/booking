@@ -9,7 +9,7 @@
         <div class="table">
           <span>{{ item.startDateTime }}</span>
           <span>Ages: {{ ageFrom }} - {{ ageTo }}</span>
-          <span>Time: 9.00 am  - 10.00 am</span>
+          <span>Time: {{ startTime }} - {{ endTime }}</span>
           <span>Provided by: <u class="bold">{{ item.merchantName }}</u></span>
         </div>
         <div class="place">
@@ -83,6 +83,12 @@ export default {
     ageTo () {
       return this.item.ageMonthTo ? this.item.ageMonthTo + ' months' : this.item.ageTo + ' year'
     },
+    startTime () {
+      return this.getHours(new Date(this.item.startDateTime))
+    },
+    endTime () {
+      return this.getHours(new Date(this.item.endDateTime))
+    },
     seatsLeft () {
       // let date = new Date(this.item.startDateTime)
       // let format = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
@@ -91,6 +97,9 @@ export default {
     }
   },
   methods: {
+    getHours (date) {
+      return date.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+    },
     toggleFavorite () {
       if (this.item.isFavorite) {
         this.unsetFavorite()

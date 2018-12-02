@@ -5,7 +5,7 @@
         <div class="column">
           <div class="filter">
             <div class="title">When would you like to go?</div>
-            <Calendar v-model="date" />
+            <Calendar v-model="timeStamp" @input="setDate" />
           </div>
           <div class="filter">
             <div class="line">
@@ -37,7 +37,7 @@
         <div class="column">
           <div class="filter">
             <div class="title">Kid(s) age?</div>
-            <AgesTable v-model="age" />
+            <AgesTable v-model="ages" @input="setAge" />
           </div>
           <div class="filter">
             <div class="title">Price:</div>
@@ -46,6 +46,7 @@
               <div>${{ price[1] }}</div>
             </div>
             <Slider ref="priceSlider" v-bind="priceSliderOptions" v-model="price" @callback="setPrice" />
+            <a class="reset-price" @click="resetPrice">No Limit</a>
           </div>
           <div class="filter">
             <div class="title">Additional filters:</div>
@@ -97,13 +98,11 @@ export default {
   },
   data () {
     return {
-      filters: {},
       activitiesTypes: [true, true, true, true],
       additional: [false, false, false],
-      age: 0,
-      date: '',
+      ages: null,
+      filters: {},
       price: [0, 200],
-      time: [8, 20],
       sliderOptions: {
         bgStyle: {
           background: '#ccc'
@@ -116,7 +115,9 @@ export default {
         height: 5,
         tooltip: false,
         tooltipMerge: true
-      }
+      },
+      time: [8, 20],
+      timeStamp: null
     }
   },
   computed: {
@@ -142,20 +143,37 @@ export default {
     },
     cancel () {
       this.filters = {}
-      this.date = ''
-      this.age = 0
+      this.activitiesTypes = [true, true, true, true]
+      this.ages = null
       this.price = [0, 200]
       this.time = [8, 20]
+      this.timeStamp = null
       this.$emit('close', true)
       this.$store.commit('SET_FILTERS', {})
     },
+    resetPrice () {
+      delete this.filters.priceFrom
+      delete this.filters.priceTo
+    },
     translateHour (hour) {
       if (hour >= 12 && hour <= 23) {
-        hour = (hour - 12 === 0) ? 12 + 'AM' : hour - 12 + 'PM'
+        hour = (hour - 12 === 0) ? 12 + ':00 AM' : hour - 12 + ':00 PM'
       } else {
-        hour = hour + 'AM'
+        hour = hour + ':00 AM'
       }
       return hour
+    },
+    setAge () {
+      if (!this.ages) return delete this.filters.ages
+      this.filters.ages = [{
+        agesFrom: this.ages[0],
+        agesTo: this.ages[1]
+      }]
+    },
+    setDate () {
+      if (!this.timeStamp) return delete this.filters.scheduleFrom
+      let date = new Date(this.timeStamp)
+      this.filters.scheduleFrom = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     },
     setPrice () {
       this.filters.priceFrom = this.price[0]
@@ -178,13 +196,6 @@ export default {
       types.forEach((selected, i) => {
         if (selected) this.filters.categories.push(i + 1)
       })
-    },
-    age (value) {
-      this.filters.ages = {}
-      this.filters.ages.ageTo = value
-    },
-    date (value) {
-      this.filters.scheduleFrom = value
     },
     visible (value) {
       if (!value) return
@@ -238,6 +249,14 @@ export default {
     &:last-child {
       margin: 0;
     }
+  }
+
+  .reset-price {
+    color: #828282;
+    display: flex;
+    font-size: 14px;
+    justify-content: flex-end;
+    margin-top: 5px;
   }
 }
 

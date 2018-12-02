@@ -1,20 +1,20 @@
 <template>
   <div class="calendar">
     <div class="header">
-      <img class="prev" src="/static/images/arrow-left.png" @click="prev">
-      <div class="month">{{ monthName }} ({{ year }})</div>
-      <img class="next" src="/static/images/arrow-right-calendar.png" @click="next">
+      <div @click="prev"><img src="/static/images/arrow-left.png"></div>
+      <div>{{ monthName }} {{ selectedDate.year }}</div>
+      <div @click="next"><img src="/static/images/arrow-right.png"></div>
     </div>
-    <table class="table">
-      <tr>
-        <th v-for="(day, i) in days" :key="i">{{ day }}</th>
-      </tr>
-      <tr v-for="(row, i) in calendar" :key="i">
-        <td v-for="(cell, j) in row" :class="className(cell)" :key="j" @click="setDate(cell)">
+    <div class="table">
+      <div class="row">
+        <div class="cell" v-for="(day, i) in daysOfWeek" :key="i">{{ day }}</div>
+      </div>
+      <div class="row" v-for="(row, i) in table" :key="i">
+        <div class="cell date" v-for="(cell, j) in row" :class="classes(cell)" :key="j" @click="setDate(cell)">
           {{ cell }}
-        </td>
-      </tr>
-    </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,131 +22,137 @@
 export default {
   data () {
     return {
-      calendar: [],
-      clicked: '',
-      currentDate: new Date(),
-      date: 0,
-      days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-      month: 10,
-      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      year: 2018
+      currentDate: {},
+      daysOfWeek: 'SMTWTFS',
+      monthNames: [
+        'January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'
+      ],
+      selectedDate: {},
+      sizes: [5, 7],
+      table: [],
+      val: 0
     }
   },
   computed: {
     monthName () {
-      return this.months[this.month]
+      return this.monthNames[this.selectedDate.month]
     }
   },
   created () {
-    let date = new Date()
-    this.date = date.getDate()
-    this.month = date.getMonth()
-    this.year = date.getFullYear()
-    this.draw()
+    this.currentDate = this.selectedDate = this.getDate()
+    this.draw(new Date(2018, 11))
   },
   methods: {
-    className (value) {
-      let date = this.currentDate
-      let string = `${this.year}-${this.month}-${value}`
+    classes (date) {
+      let cd = this.currentDate
+      let sd = this.selectedDate
       return {
-        clicked: this.clicked === string,
-        item: value,
-        selected: this.date === value && this.month === date.getMonth() && this.year === date.getFullYear()
+        current: cd.year === sd.year && cd.month === sd.month && cd.date === date,
+        selected: this.val === new Date(sd.year, sd.month, date).getTime()
       }
     },
-    draw () {
-      let date = new Date(this.year, this.month)
-      let firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay()
-      let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+    draw (date) {
+      let number = 1
       let started = false
-      let counter = 1
-      this.day = new Date().getDate()
-      this.calendar = new Array(5).fill([]).map((row, i) => {
-        return new Array(7).fill(null).map((cell, j) => {
-          if (j === firstDay) started = true
-          if (started && counter <= lastDay) return counter++
+      this.selectedDate = this.getDate(date)
+      this.table = new Array(this.sizes[0]).fill().map((row, i) => {
+        return new Array(this.sizes[1]).fill().map((cell, j) => {
+          if (j >= this.selectedDate.firstDay && !started) started = true
+          return (number <= this.selectedDate.lastDay && started) ? number++ : ''
         })
       })
     },
+    getDate (date = new Date()) {
+      let firstDate = new Date(date.getFullYear(), date.getMonth(), 1)
+      let lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+      return {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        date: date.getDate(),
+        firstDay: firstDate.getDay(),
+        lastDay: lastDate.getDate()
+      }
+    },
     next () {
-      this.month = (this.month === this.months.length - 1) ? 0 : this.month + 1
-      this.year = (this.month === 0) ? this.year + 1 : this.year
-      this.draw()
+      let isLastMonth = this.selectedDate.month === 11
+      let year = isLastMonth ? this.selectedDate.year + 1 : this.selectedDate.year
+      let month = isLastMonth ? 0 : this.selectedDate.month + 1
+      this.draw(new Date(year, month))
     },
     prev () {
-      this.month = (this.month === 0) ? this.months.length - 1 : this.month - 1
-      this.year = (this.month === this.months.length - 1) ? this.year - 1 : this.year
-      this.draw()
+      let isFirstMonth = this.selectedDate.month === 0
+      let year = isFirstMonth ? this.selectedDate.year - 1 : this.selectedDate.year
+      let month = isFirstMonth ? 11 : this.selectedDate.month - 1
+      this.draw(new Date(year, month))
     },
     setDate (date) {
-      let string = `${this.year}-${this.month}-${date}`
-      this.clicked = (this.clicked === string) ? '' : string
-      this.$emit('input', this.clicked)
+      let time = new Date(this.selectedDate.year, this.selectedDate.month, date).getTime()
+      this.val = (this.val === time) ? 0 : time
+      this.$emit('input', this.val)
     }
   },
   props: {
     value: {
-      default: '',
-      type: String
+      default: 0,
+      type: Number
     }
   },
   watch: {
     value (val) {
-      this.clicked = val
+      if (val !== null) return
+      this.draw()
+      this.val = 0
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.calendar {
-  user-select: none;
-}
-
 .header {
-  align-items: center;
-  color: #000;
   display: flex;
-  font-size: 14px;
   justify-content: space-between;
   margin-bottom: 25px;
 
-  .prev,
-  .next {
+  img {
     cursor: pointer;
   }
 }
 
 .table {
   color: #333333;
-  font-size: 13px;
+  display: table;
+  font-size: 15px;
+  table-layout: fixed;
   text-align: center;
+  user-select: none;
   width: 100%;
+}
 
-  th {
-    font-weight: 550;
-  }
+.row {
+  display: table-row;
+}
 
-  td:hover {
+.cell {
+  border-radius: 30px;
+  display: table-cell;
+}
+
+.date {
+  cursor: pointer;
+
+  &.current {
     background: #eee;
-    border-radius: 30px;
+    font-weight: bold;
   }
 
-  .clicked {
+  &.selected {
     background: #D9429F !important;
-    border-radius: 30px;
     color: #fff;
-    font-weight: bold;
   }
 
-  .item {
-    cursor: pointer;
-  }
-
-  .selected {
+  &:hover {
     background: #eee;
-    border-radius: 30px;
-    font-weight: bold;
   }
 }
 </style>

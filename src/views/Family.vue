@@ -1,7 +1,9 @@
 <template>
   <div class="container">
+    <Modal class="modal">{{ message }}</Modal>
     <Navigation title="KIDS AND CAREGIVERS" />
     <FamilyMain
+      :isLoaded="isLoaded"
       :members="members"
       @addPerson="addPerson"
       @deletePerson="deletePerson"
@@ -12,17 +14,21 @@
 
 <script>
 import FamilyMain from '@/components/family/FamilyMain'
+import Modal from '@/components/common/Modal'
 import Navigation from '@/components/common/Navigation'
 import { deleteFamilyMember, getFamilyMembers, saveAdult, saveChild } from '@/api/profile'
 
 export default {
   components: {
     FamilyMain,
+    Modal,
     Navigation
   },
   data () {
     return {
+      isLoaded: false,
       members: [],
+      message: '',
       newKid: {
         fullName: '',
         birthDate: ''
@@ -41,24 +47,28 @@ export default {
     async deleteFamilyMember (id) {
       let response = await deleteFamilyMember(id)
       if (response.data.result) {
+        this.showModal('Data was deleted successfully.')
         this.getFamilyMembers()
       }
     },
     async getFamilyMembers () {
       let response = await getFamilyMembers()
       if (response.data.list) {
+        this.isLoaded = true
         this.members = response.data.list
       }
     },
     async saveAdult (data) {
       let response = await saveAdult(data)
       if (response.data.result) {
+        this.showModal('Data has been saved')
         this.getFamilyMembers()
       }
     },
     async saveChild (data) {
       let response = await saveChild(data)
       if (response.data.result) {
+        this.showModal('Data has been saved.')
         this.getFamilyMembers()
       }
     },
@@ -87,7 +97,18 @@ export default {
           phone: data.phone
         })
       }
+    },
+    showModal (message) {
+      this.message = message
+      this.$store.commit('SET_MODAL_VISIBLE', true)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.modal {
+  font-size: 18px;
+  text-align: center;
+}
+</style>

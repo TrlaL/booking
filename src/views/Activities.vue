@@ -5,7 +5,7 @@
     <ActivitiesList :items="items" />
     <Loading v-show="!isLoadedItems" />
     <div class="pagination" v-show="paginationVisible">
-      <button @click="getNextPage">Next Page</button>
+      <a @click="getNextPage">Next Page</a>
     </div>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
       items: [],
       itemsPerPage: 10,
       page: 1,
-      pagesCount: 0
+      pagesCount: 0,
+      searchQuery: ''
     }
   },
   computed: {
@@ -69,26 +70,30 @@ export default {
           activityTypeId: this.activityTypeId,
           ...this.filters
         }
-      })
+      }, this.searchQuery)
     },
     getNextPage () {
+      this.page = (this.page + 1 > this.pagesCount) ? this.pagesCount : this.page + 1
       this.getActivities({
         filters: {
-          activityTypeId: this.activityTypeId
+          activityTypeId: this.activityTypeId,
+          ...this.filters
         },
         pages: {
-          page: ++this.page
+          page: this.page
         }
-      })
+      }, this.searchQuery)
     },
     search (value) {
+      this.searchQuery = value
       this.items = []
       this.page = 1
       this.getActivities({
         filters: {
-          activityTypeId: this.activityTypeId
+          activityTypeId: this.activityTypeId,
+          ...this.filters
         }
-      }, value)
+      }, this.searchQuery)
     }
   },
   watch: {
@@ -100,7 +105,7 @@ export default {
           activityTypeId: this.activityTypeId,
           ...filters
         }
-      })
+      }, this.searchQuery)
     }
   }
 }
@@ -115,7 +120,10 @@ export default {
 }
 
 .pagination {
+  cursor: pointer;
+  font-size: 14px;
   padding: 10px;
   text-align: center;
+  text-decoration: underline;
 }
 </style>
