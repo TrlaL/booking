@@ -167,8 +167,10 @@ export default {
     margin-bottom: 25px;
 
     .icon {
+      height: 60px;
       margin-right: 50px;
       object-fit: contain;
+      width: 60px;
     }
 
     .forms {

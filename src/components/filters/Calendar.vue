@@ -29,7 +29,7 @@ export default {
         'August', 'September', 'October', 'November', 'December'
       ],
       selectedDate: {},
-      sizes: [5, 7],
+      sizes: [6, 7],
       table: [],
       val: 0
     }

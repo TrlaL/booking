@@ -6,7 +6,7 @@
         <div class="close" @click="handleButton(false)">
           <img class="close" src="/static/images/close.png">
         </div>
-        <div class="header">{{ title }}</div>
+        <div class="header" v-if="title">{{ title }}</div>
         <div class="content">
           <slot></slot>
           <div class="modal-buttons" v-show="buttons">

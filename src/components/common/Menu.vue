@@ -37,6 +37,7 @@ export default {
     border: 1px solid #D9429F;
     border-radius: 5px;
     color: #D9429F;
+    cursor: pointer;
     display: flex;
     flex: 1;
     font-size: 17px;

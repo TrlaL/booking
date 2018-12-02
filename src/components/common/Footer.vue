@@ -46,8 +46,8 @@
           </ul>
         </div>
         <div class="section">
-          <img src="/static/images/apple.png">
-          <img src="/static/images/google.png">
+          <img src="/static/images/apple.svg">
+          <img src="/static/images/google.svg">
         </div>
       </div>
       <div class="copyright">© 2017 GoBambino. All Rights Reserved.</div>
