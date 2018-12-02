@@ -52,7 +52,6 @@ export default {
       }
     },
     async getFamilyMembers () {
-      this.isLoaded = false
       let response = await getFamilyMembers()
       if (response.data.list) {
         this.isLoaded = true

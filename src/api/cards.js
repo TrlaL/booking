@@ -10,8 +10,8 @@ export function createCard (data) {
   return instance.post('/cards/create', data)
 }
 
-export function updateCard (data) {
-  return instance.put('/cards/update', data)
+export function updateCard (id, data) {
+  return instance.put(`/cards/update?id=${id}`, data)
 }
 
 export function deleteCard (id) {

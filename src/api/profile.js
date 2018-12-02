@@ -27,3 +27,7 @@ export function deleteFamilyMember (id) {
     data: { id }
   })
 }
+
+export function activatePromocode (code) {
+  return instance.post('/promocode/activate', { code })
+}

@@ -44,6 +44,11 @@ export default {
       default: false,
       type: Boolean
     }
+  },
+  watch: {
+    modalVisible (value) {
+      this.$emit('changedVisible', value)
+    }
   }
 }
 </script>

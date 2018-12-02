@@ -5,14 +5,15 @@
     <AccountMain
       :cards="cards"
       :credits="credits"
-      :loaded="{ isCardsLoaded, isSettingsLoaded }"
+      :loaded="loaded"
       :settings="settings"
       @addCard="addCard"
       @addCredit="addCredit"
       @createCard="createCard"
       @deleteCard="deleteCard"
-      @updateCard="updateCard"
       @saveUserSettings="saveUserSettings"
+      @updateCard="updateCard"
+      @updated="update"
     />
   </div>
 </template>
@@ -38,6 +39,14 @@ export default {
       isSettingsLoaded: false,
       message: '',
       settings: {}
+    }
+  },
+  computed: {
+    loaded () {
+      return {
+        isCardsLoaded: this.isCardsLoaded,
+        isSettingsLoaded: this.isSettingsLoaded
+      }
     }
   },
   created () {
@@ -67,9 +76,15 @@ export default {
       this.showModal('Card was deleted successfully')
       this.getCards()
     },
-    async updateCard () {
-      let response = await updateCard()
-      console.log(response)
+    async updateCard (data) {
+      let response = await updateCard(data.id, {
+        number: data.number,
+        expireDate: data.expireDate
+      })
+      if (response.data.success) {
+        this.showModal('Card was updated successfully')
+        this.getCards()
+      }
     },
     async loadUserSettings () {
       let response = await loadUserSettings()
@@ -105,6 +120,9 @@ export default {
     showModal (message) {
       this.message = message
       this.$store.commit('SET_MODAL_VISIBLE', true)
+    },
+    update () {
+      this.loadUserSettings()
     }
   }
 }

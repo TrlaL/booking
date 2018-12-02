@@ -5,7 +5,7 @@
         <img class="title-icon" src="/static/images/kid.png">
         Kid(s)
       </div>
-      <div class="persons">
+      <div class="persons" v-if="isLoaded">
         <div class="person" v-for="(kid, i) in kids" :key="i">
           <img class="icon" src="/static/images/kid.png">
           <div class="forms">
@@ -26,8 +26,8 @@
             </template>
           </div>
         </div>
-        <Loading v-show="!isLoaded" />
       </div>
+      <Loading v-else />
       <div class="empty" v-show="isLoaded && !kids.length">You have not added children yet.</div>
       <div class="add" v-show="isLoaded">
         <a @click="addPerson('kid')">+ Add Kid</a>
@@ -38,7 +38,7 @@
         <img class="title-icon" src="/static/images/user-black.png">
         Caregiver(s)
       </div>
-      <div class="persons">
+      <div class="persons" v-if="isLoaded">
         <div class="person" v-for="(caregiver, i) in caregivers" :key="i">
           <img class="icon" src="/static/images/user-black.png">
           <div class="forms">
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-      <Loading v-show="!isLoaded" />
+      <Loading v-else />
       <div class="empty" v-show="isLoaded && !caregivers.length">You have not added caregivers yet.</div>
       <div class="add" v-show="isLoaded">
         <a @click="addPerson('caregiver')">+ Add Caregiver</a>
@@ -310,13 +310,12 @@ export default {
 
       .mobile-remove {
         background: #fff;
-        border: 2px solid #E1519F;
         color: #E1519F;
       }
 
       button {
         background: #E1519F;
-        border: 0;
+        border: 2px solid #E1519F;
         border-radius: 5px;
         color: #fff;
         cursor: pointer;
@@ -339,7 +338,12 @@ export default {
     color: #E1519F;
     cursor: pointer;
     text-align: center;
-    padding: 10px;
+    width: 100%;
+
+    a {
+      display: block;
+      padding: 10px;
+    }
   }
 }
 </style>

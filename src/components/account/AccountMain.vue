@@ -1,5 +1,6 @@
 <template>
   <div class="box container">
+    <AccountModal @updated="$emit('updated')" />
     <div class="section">
       <div class="title">
         <img class="title-icon" src="/static/images/user-black.png">
@@ -66,17 +67,40 @@
         <a @click="$emit('addCard')">+ Add Card</a>
       </div>
     </div>
+    <div class="section">
+      <div class="title">
+        <img class="title-icon" src="/static/images/credits.png">
+        GoBambino Credits
+      </div>
+      <div class="blocks">
+        <div class="block">
+          <img class="icon" src="/static/images/credits.png">
+          <div class="forms">
+            <div v-if="!settings.money">Currently, no credits available</div>
+            <div v-else>You have {{ settings.money }} credits</div>
+          </div>
+          <div class="buttons">
+            <button @click="addCredit">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import AccountModal from './AccountModal'
 import Loading from '../common/Loading'
 
 export default {
   components: {
+    AccountModal,
     Loading
   },
   methods: {
+    addCredit () {
+      this.$store.commit('SET_MODAL_VISIBLE', true)
+    },
     handleCard (card) {
       if (card.isNew) {
         this.$emit('createCard', card)
@@ -306,13 +330,12 @@ export default {
 
       .mobile-remove {
         background: #fff;
-        border: 2px solid #E1519F;
         color: #E1519F;
       }
 
       button {
         background: #E1519F;
-        border: 0;
+        border: 2px solid #E1519F;
         border-radius: 5px;
         color: #fff;
         cursor: pointer;
@@ -335,7 +358,11 @@ export default {
     color: #E1519F;
     cursor: pointer;
     text-align: center;
-    padding: 10px;
+
+    a {
+      display: block;
+      padding: 10px;
+    }
   }
 }
 </style>
