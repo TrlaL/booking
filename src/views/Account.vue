@@ -5,6 +5,7 @@
     <AccountMain
       :cards="cards"
       :credits="credits"
+      :loaded="{ isCardsLoaded, isSettingsLoaded }"
       :settings="settings"
       @addCard="addCard"
       @addCredit="addCredit"
@@ -33,6 +34,8 @@ export default {
     return {
       cards: [],
       credits: [],
+      isCardsLoaded: false,
+      isSettingsLoaded: false,
       message: '',
       settings: {}
     }
@@ -45,6 +48,7 @@ export default {
     async getCards () {
       let response = await getCards()
       if (response.data) {
+        this.isCardsLoaded = true
         this.cards = response.data
       }
     },
@@ -70,6 +74,7 @@ export default {
     async loadUserSettings () {
       let response = await loadUserSettings()
       if (response.data.result) {
+        this.isSettingsLoaded = true
         this.settings = response.data.user
       }
     },

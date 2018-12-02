@@ -5,7 +5,7 @@
         <img class="title-icon" src="/static/images/user-black.png">
         My account
       </div>
-      <div class="blocks">
+      <div class="blocks" v-if="loaded.isSettingsLoaded">
         <div class="block">
           <img class="icon" src="/static/images/user-black.png">
           <div class="forms">
@@ -31,13 +31,14 @@
           </div>
         </div>
       </div>
+      <Loading v-else />
     </div>
     <div class="section">
       <div class="title">
         <img class="title-icon" src="/static/images/payment.png">
         My payment method
       </div>
-      <div class="blocks">
+      <div class="blocks" v-if="loaded.isCardsLoaded">
         <div class="block" v-for="(card, i) in cards" :key="i">
           <img class="icon" src="/static/images/payment.png">
           <div class="forms">
@@ -59,8 +60,9 @@
           </div>
         </div>
       </div>
+      <Loading v-else />
       <div class="empty" v-show="!cards.length">You have not added cards yet.</div>
-      <div class="add">
+      <div class="add" v-show="loaded.isCardsLoaded">
         <a @click="$emit('addCard')">+ Add Card</a>
       </div>
     </div>
@@ -68,7 +70,12 @@
 </template>
 
 <script>
+import Loading from '../common/Loading'
+
 export default {
+  components: {
+    Loading
+  },
   methods: {
     handleCard (card) {
       if (card.isNew) {
@@ -86,6 +93,10 @@ export default {
     credits: {
       required: true,
       type: Array
+    },
+    loaded: {
+      required: true,
+      type: Object
     },
     settings: {
       required: true,
