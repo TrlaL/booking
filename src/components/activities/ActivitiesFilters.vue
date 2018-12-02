@@ -18,19 +18,19 @@
             <div class="title">Select activity type(s):</div>
             <div class="line">
               Academic / Educational
-              <Checkbox size="20" v-model="activitiesTypes[0]" />
+              <Checkbox size="20" :value="1" v-model="categories" />
             </div>
             <div class="line">
               Creative / Artistic
-              <Checkbox size="20" v-model="activitiesTypes[1]" />
+              <Checkbox size="20" :value="2" v-model="categories" />
             </div>
             <div class="line">
               Physical / Athletic
-              <Checkbox size="20" v-model="activitiesTypes[2]" />
+              <Checkbox size="20" :value="3" v-model="categories" />
             </div>
             <div class="line">
               Entertainment
-              <Checkbox size="20" v-model="activitiesTypes[3]" />
+              <Checkbox size="20" :value="4" v-model="categories" />
             </div>
           </div>
         </div>
@@ -52,15 +52,15 @@
             <div class="title">Additional filters:</div>
             <div class="line">
               Caregiver must be present
-              <Checkbox size="20" v-model="additional[0]" />
+              <Checkbox size="20" />
             </div>
             <div class="line">
               Sleepaway camps only
-              <Checkbox size="20" v-model="additional[1]" />
+              <Checkbox size="20" />
             </div>
             <div class="line">
               Weekend activities only
-              <Checkbox size="20" v-model="additional[2]" />
+              <Checkbox size="20" />
             </div>
           </div>
         </div>
@@ -83,24 +83,24 @@
 
 <script>
 import AgesTable from '../filters/AgesTable'
-import Checkbox from '../common/Checkbox'
 import Calendar from '../filters/Calendar'
+import Checkbox from '../common/Checkbox'
 import DropDownList from '../filters/DropDownList'
 import Slider from 'vue-slider-component'
 
 export default {
   components: {
     AgesTable,
-    Checkbox,
     Calendar,
+    Checkbox,
     DropDownList,
     Slider
   },
   data () {
     return {
-      activitiesTypes: [true, true, true, true],
       additional: [false, false, false],
       ages: null,
+      categories: [1, 2, 3, 4],
       filters: {},
       price: [0, 200],
       sliderOptions: {
@@ -139,19 +139,21 @@ export default {
   methods: {
     apply () {
       this.$emit('close', true)
+      this.filters.categories = this.categories
       this.$store.commit('SET_FILTERS', this.filters)
     },
     cancel () {
       this.filters = {}
-      this.activitiesTypes = [true, true, true, true]
       this.ages = null
+      this.categories = [1, 2, 3, 4]
       this.price = [0, 200]
       this.time = [8, 20]
       this.timeStamp = null
-      this.$emit('close', true)
       this.$store.commit('SET_FILTERS', {})
+      this.$emit('close', true)
     },
     resetPrice () {
+      this.price = [0, 200]
       delete this.filters.priceFrom
       delete this.filters.priceTo
     },
@@ -191,12 +193,6 @@ export default {
     }
   },
   watch: {
-    activitiesTypes (types) {
-      this.filters.categories = []
-      types.forEach((selected, i) => {
-        if (selected) this.filters.categories.push(i + 1)
-      })
-    },
     visible (value) {
       if (!value) return
       let timer = setTimeout(() => {
@@ -253,6 +249,7 @@ export default {
 
   .reset-price {
     color: #828282;
+    cursor: pointer;
     display: flex;
     font-size: 14px;
     justify-content: flex-end;

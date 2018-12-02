@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Booking />
+    <BookingMain />
   </div>
 </template>
 
 <script>
-import Booking from '@/components/booking/Booking'
+import BookingMain from '@/components/booking/BookingMain'
 
 export default {
   components: {
-    Booking
+    BookingMain
   }
 }
 </script>

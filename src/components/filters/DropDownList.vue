@@ -18,7 +18,6 @@
 
 <script>
 import Checkbox from '../common/Checkbox'
-
 export default {
   components: {
     Checkbox
@@ -90,11 +89,9 @@ export default {
   color: #4F4F4F;
   user-select: none;
 }
-
 .header {
   display: flex;
   height: 50px;
-
   .title {
     align-items: center;
     border-bottom: 1px solid #aaa;
@@ -108,14 +105,11 @@ export default {
     padding: 10px 0 10px 0;
   }
 }
-
 .items {
   font-size: 12px;
-
   .line {
     display: flex;
   }
-
   .item {
     flex: 1;
     margin-right: 20px;

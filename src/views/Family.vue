@@ -47,7 +47,7 @@ export default {
     async deleteFamilyMember (id) {
       let response = await deleteFamilyMember(id)
       if (response.data.result) {
-        this.showModal('Data was deleted successfully.')
+        this.showModal('Data was deleted successfully')
         this.getFamilyMembers()
       }
     },
@@ -68,7 +68,7 @@ export default {
     async saveChild (data) {
       let response = await saveChild(data)
       if (response.data.result) {
-        this.showModal('Data has been saved.')
+        this.showModal('Data has been saved')
         this.getFamilyMembers()
       }
     },

@@ -1,113 +1,101 @@
 <template>
-  <div class="container box">
-    <Modal class="center" title="Alert">Settings have been saved</Modal>
+  <div class="box container">
     <div class="section">
-      <div class="title">My account</div>
-      <div class="block">
-        <img class="icon" src="/static/images/user-black.png">
-        <div class="forms">
-          <div>
-            <label>Full Name</label>
-            <input type="text" v-model="user.fullName">
+      <div class="title">
+        <img class="title-icon" src="/static/images/user-black.png">
+        My account
+      </div>
+      <div class="blocks">
+        <div class="block">
+          <img class="icon" src="/static/images/user-black.png">
+          <div class="forms">
+            <div>
+              <label>Full Name</label>
+              <input type="text" v-model="settings.fullName">
+            </div>
+            <div>
+              <label>Email</label>
+              <input type="text" v-model="settings.email">
+            </div>
+            <div>
+              <label>Password</label>
+              <input placeholder="**********" type="text" v-model="settings.password">
+            </div>
+            <div>
+              <label>Phone</label>
+              <input type="text" v-model="settings.phone">
+            </div>
           </div>
-          <div>
-            <label>Email</label>
-            <input type="text" v-model="user.email">
+          <div class="buttons">
+            <button @click="$emit('saveUserSettings', settings)">Update</button>
           </div>
-          <div>
-            <label>Password</label>
-            <input type="text" placeholder="********" v-model="user.password">
-          </div>
-          <div>
-            <label>Phone Number</label>
-            <input type="text" v-model="user.phone">
-          </div>
-        </div>
-        <div class="buttons">
-          <button @click="saveUserSettings">Update</button>
         </div>
       </div>
     </div>
     <div class="section">
-      <div class="title">My payment method</div>
-      <div class="block">
-        <img class="icon" src="/static/images/payment.png">
-        <div class="forms">
-          <div>
-            <label>Credit Card Number</label>
-            <input type="text">
+      <div class="title">
+        <img class="title-icon" src="/static/images/payment.png">
+        My payment method
+      </div>
+      <div class="blocks">
+        <div class="block" v-for="(card, i) in cards" :key="i">
+          <img class="icon" src="/static/images/payment.png">
+          <div class="forms">
+            <div>
+              <label>Credit Card Number</label>
+              <input type="text" v-model="card.number">
+            </div>
+            <div>
+              <label>Experation Date</label>
+              <input type="text" v-model="card.expireDate">
+            </div>
           </div>
-          <div>
-            <label>Experation Date</label>
-            <input type="text">
+          <div class="buttons">
+            <button @click="handleCard(card)">{{ card.isNew ? 'Save' : 'Update' }}</button>
+            <template v-if="!card.isNew">
+              <button class="mobile-remove" @click="$emit('deleteCard', card.id)">Remove</button>
+              <img class="desktop-remove" src="/static/images/reset.png" @click="$emit('deleteCard', card.id)">
+            </template>
           </div>
-        </div>
-        <div class="buttons">
-          <button>Update</button>
-          <button class="reset">
-            <img class="desktop" src="/static/images/reset.png">
-            <div class="mobile">Remove</div>
-          </button>
         </div>
       </div>
-    </div>
-    <div class="section">
-      <div class="title">GoBambino Credits</div>
-      <div class="block">
-        <img class="icon" src="/static/images/credits.png">
-        <div class="forms">
-          Currently, no credits available
-        </div>
-        <div class="buttons">
-          <button>+ Add</button>
-        </div>
+      <div class="empty" v-show="!cards.length">You have not added cards yet.</div>
+      <div class="add">
+        <a @click="$emit('addCard')">+ Add Card</a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Modal from '../common/Modal'
-import { loadUserSettings, saveUserSettings } from '@/api/profile'
-
 export default {
-  components: {
-    Modal
-  },
-  data () {
-    return {
-      user: {}
+  methods: {
+    handleCard (card) {
+      if (card.isNew) {
+        this.$emit('createCard', card)
+      } else {
+        this.$emit('updateCard', card)
+      }
     }
   },
-  created () {
-    this.loadUserSettings()
-  },
-  methods: {
-    async loadUserSettings () {
-      let response = await loadUserSettings()
-      if (response.data.result) {
-        this.user = response.data.user
-      }
+  props: {
+    cards: {
+      required: true,
+      type: Array
     },
-    async saveUserSettings () {
-      let response = await saveUserSettings({
-        fullName: this.user.fullName,
-        email: this.user.email,
-        phone: this.user.phone
-      })
-      if (response.data.result) {
-        this.$store.commit('SET_MODAL_VISIBLE', true)
-      }
+    credits: {
+      required: true,
+      type: Array
+    },
+    settings: {
+      required: true,
+      type: Object
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.center {
-  text-align: center;
-}
-
 @include desktop {
   .container {
     padding: 25px 0 25px 0;
@@ -115,9 +103,8 @@ export default {
 
   .section {
     color: #4F4F4F;
-    font-size: 15px;
     margin: auto;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     max-width: 70%;
 
     &:last-child {
@@ -128,158 +115,216 @@ export default {
   .title {
     color: #E1519F;
     font-size: 15px;
+    margin-bottom: 15px;
 
     &::after {
       content: ':';
+    }
+
+    .title-icon {
+      display: none;
     }
   }
 
   .block {
     align-items: center;
     display: flex;
-    padding: 15px 0 15px 0;
-  }
+    margin-bottom: 25px;
 
-  .icon {
-    object-fit: contain;
-    margin-right: 40px;
-  }
+    .icon {
+      margin-right: 50px;
+      object-fit: contain;
+    }
 
-  .forms {
-    display: flex;
-    flex: 1;
-
-    div {
+    .forms {
       display: flex;
-      flex-direction: column;
-      margin-right: 15px;
+      flex: 1;
 
-      &:last-child {
-        margin: 0;
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-right: 15px;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+
+      label {
+        color: #A1A1A1;
+        font-size: 14px;
+      }
+
+      input {
+        border: 0;
+        border-bottom: 1px solid #D4D4D4;
+        color: #4F4F4F;
+        font: inherit;
+        padding: 7px 0 7px 0;
+        width: 100%;
       }
     }
 
-    label {
-      color: #A1A1A1;
-      font-size: 14px;
-    }
+    .buttons {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-left: 50px;
+      width: 120px;
 
-    input {
-      border: 0;
-      border-bottom: 1px solid #D4D4D4;
-      color: #4F4F4F;
-      font: inherit;
-      padding: 5px 0 5px 0;
-      width: 100%;
+      .mobile-remove {
+        display: none;
+      }
+
+      button {
+        background: #E1519F;
+        border: 0;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        flex-shrink: 0;
+        padding: 8px 0 8px 0;
+        width: 90px;
+      }
+
+      img {
+        cursor: pointer;
+      }
     }
   }
 
-  .buttons {
-    align-items: center;
+  .add {
     display: flex;
-    justify-content: space-between;
-    margin-left: 40px;
-    width: 125px;
+    justify-content: flex-end;
 
-    button {
-      background: #E1519F;
-      border: 0;
-      border-radius: 5px;
-      color: #fff;
+    a {
       cursor: pointer;
-      font: inherit;
-      padding: 8px 15px 8px 15px;
-      width: 90px;
-    }
-
-    .reset {
-      align-items: center;
-      background: 0;
-      display: flex;
-      flex: 0;
-      padding: 0;
-    }
-
-    .mobile {
-      display: none;
+      color: #D9429F;
+      display: block;
+      font-size: 14px;
+      width: 120px;
     }
   }
 }
 
 @include mobile {
-  .box,
+  .box {
+    box-shadow: none;
+  }
+
   .container {
     background: #eee;
-    box-shadow: none;
     margin: 0;
+  }
+
+  .empty {
+    margin: 20px;
   }
 
   .section {
     background: #fff;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
     margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .title {
+    align-items: center;
     background: #eee;
     border-top: 1px solid #ddd;
+    color: #E1519F;
+    display: flex;
+    font-size: 18px;
     padding: 10px 20px 10px 20px;
+
+    .title-icon {
+      display: block;
+      height: 30px;
+      margin-right: 5px;
+      object-fit: contain;
+      width: 30px;
+    }
   }
 
-  .icon {
-    display: none;
-  }
-
-  .person {
+  .block {
+    border-bottom: 1px solid #ddd;
     padding: 20px;
-  }
 
-  .forms {
-    padding: 20px;
-
-    div {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
+    &:last-child {
+      border-bottom: 0;
     }
 
-    label::after {
-      content: ':';
-    }
-
-    input {
-      border: 0;
-      border-bottom: 1px solid #D4D4D4;
-      color: #4F4F4F;
-      font: inherit;
-      padding: 5px 0 5px 0;
-      width: 100%;
-    }
-  }
-
-  .buttons {
-    padding: 0 20px 20px 20px;
-
-    button {
-      background: #D9429F;
-      border: 0;
-      border-radius: 5px;
-      color: #fff;
-      font: inherit;
-      margin-bottom: 5px;
-      padding: 5px 0 5px 0;
-      width: 100%;
-    }
-
-    .reset {
-      background: #fff;
-      border: 2px solid #D9429F;
-      color: #D9429F;
-    }
-
-    .desktop {
+    .icon {
       display: none;
     }
+
+    .forms {
+      margin-bottom: 10px;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+
+      label {
+        color: #A1A1A1;
+        font-size: 14px;
+      }
+
+      input {
+        border: 0;
+        border-bottom: 1px solid #D4D4D4;
+        color: #4F4F4F;
+        font: inherit;
+        padding: 7px 0 7px 0;
+        width: 100%;
+      }
+    }
+
+    .buttons {
+      display: flex;
+
+      .desktop-remove {
+        display: none;
+      }
+
+      .mobile-remove {
+        background: #fff;
+        border: 2px solid #E1519F;
+        color: #E1519F;
+      }
+
+      button {
+        background: #E1519F;
+        border: 0;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        flex: 1;
+        margin-right: 10px;
+        padding: 8px 0 8px 0;
+        width: 90px;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .add {
+    border-top: 1px solid #ddd;
+    background: #eee;
+    color: #E1519F;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
   }
 }
 </style>

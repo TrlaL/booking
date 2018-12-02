@@ -12,20 +12,13 @@
         <input type="text" value="MM/YYYY">
       </div>
     </div>
-    <Checkbox>Save credit card for future bookings</Checkbox>
+    <label class="custom-checkbox">Save credit card for future bookings
+      <input type="checkbox">
+      <span></span>
+    </label>
     <button class="button">Book</button>
   </div>
 </template>
-
-<script>
-import Checkbox from '../common/Checkbox'
-
-export default {
-  components: {
-    Checkbox
-  }
-}
-</script>
 
 <style lang="scss" scoped>
 @include mobile {

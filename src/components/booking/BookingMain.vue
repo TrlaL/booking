@@ -1,5 +1,5 @@
 <template>
-  <div class="booking-list">
+  <div class="booking-main">
     <div class="header">
       CHOOSE ATTENDEE(S)
       <div>Only those who require a seat/ticket</div>
@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .booking-list {
+  .booking-main {
     padding: 40px 0 40px 0;
   }
 

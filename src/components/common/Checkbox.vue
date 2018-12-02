@@ -1,50 +1,60 @@
 <template>
-  <div class="checkbox" @click="toggle">
-    <div class="toggle" :style="style"></div>
+  <div class="checkbox" @click="click">
+    <button class="button" :class="buttonClasses" :style="styles"></button>
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      active: this.value
-    }
-  },
   computed: {
+    buttonClasses () {
+      return {
+        checked: this.isChecked,
+        margin: this.hasSlot
+      }
+    },
     hasSlot () {
       return this.$slots.default
     },
-    style () {
+    isArray () {
+      return Array.isArray(this.checked)
+    },
+    isChecked () {
+      return this.isArray ? this.checked.includes(this.value) : this.checked
+    },
+    styles () {
       return {
-        background: this.active ? '#E1519F' : '#E3E0E1',
-        height: `${this.size}px`,
-        marginRight: this.hasSlot ? '10px' : 0,
-        width: `${this.size}px`
+        height: this.size + 'px',
+        width: this.size + 'px'
       }
     }
   },
   methods: {
-    toggle () {
-      this.active = !this.active
-      this.$emit('input', this.active)
+    click () {
+      let checked = !this.checked
+      if (this.isArray) {
+        checked = [].concat(this.checked)
+        if (checked.includes(this.value)) {
+          checked.splice(checked.indexOf(this.value), 1)
+        } else {
+          checked.push(this.value)
+        }
+      }
+      this.$emit('input', checked)
     }
+  },
+  model: {
+    prop: 'checked',
+    event: 'input'
   },
   props: {
+    checked: null,
     size: {
-      default: '12',
+      default: '10',
       type: String
     },
-    value: {
-      default: false,
-      type: Boolean
-    }
-  },
-  watch: {
-    value (value) {
-      this.active = value
-    }
+    value: null
   }
 }
 </script>
@@ -52,18 +62,27 @@ export default {
 <style lang="scss" scoped>
 .checkbox {
   align-items: center;
-  color: #A1A1A1;
   cursor: pointer;
   display: flex;
-  font-size: 11px;
+  font-size: 13px;
   user-select: none;
 }
 
-.toggle {
-  background: #E3E0E1;
+.button {
+  background: #e0e0e0;
+  border: 0;
   border-radius: 100%;
-  height: 12px;
-  margin-right: 10px;
-  width: 12px;
+  cursor: pointer;
+  height: 10px;
+  padding: 0;
+  width: 10px;
+}
+
+.checked {
+  background: #E1519F;
+}
+
+.margin {
+  margin-right: 5px;
 }
 </style>
