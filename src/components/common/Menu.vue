@@ -1,8 +1,8 @@
 <template>
   <div class="menu" @mouseenter="handle(true)" @mouseleave="handle(false)">
-    <img src="/static/images/user-small.png">
+    <img class="icon" src="/static/images/user-gray.svg">
     My Account
-    <img src="/static/images/arrow-bottom.png">
+    <img class="icon" src="/static/images/arrow-bottom.svg">
     <transition name="fade">
       <div class="list" v-show="visible">
         <router-link to="/favorites">My Favorites</router-link>
@@ -46,6 +46,12 @@ export default {
     padding: 5px 17px 5px 17px;
     position: relative;
     z-index: 1;
+  }
+
+  .icon {
+    height: 30px;
+    object-fit: contain;
+    width: 30px;
   }
 
   .list {

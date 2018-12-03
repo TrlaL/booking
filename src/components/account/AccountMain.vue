@@ -3,12 +3,12 @@
     <AccountModal @updated="$emit('updated')" />
     <div class="section">
       <div class="title">
-        <img class="title-icon" src="/static/images/user-black.png">
+        <img class="title-icon" src="/static/images/user-black.svg">
         My account
       </div>
       <div class="blocks" v-if="loaded.isSettingsLoaded">
         <div class="block">
-          <img class="icon" src="/static/images/user-black.png">
+          <img class="icon" src="/static/images/user-black.svg">
           <div class="forms">
             <div>
               <label>Full Name</label>
@@ -36,12 +36,12 @@
     </div>
     <div class="section">
       <div class="title">
-        <img class="title-icon" src="/static/images/payment.png">
+        <img class="title-icon" src="/static/images/payment.svg">
         My payment method
       </div>
       <div class="blocks" v-if="loaded.isCardsLoaded">
         <div class="block" v-for="(card, i) in cards" :key="i">
-          <img class="icon" src="/static/images/payment.png">
+          <img class="icon" src="/static/images/payment.svg">
           <div class="forms">
             <div>
               <label>Credit Card Number</label>
@@ -56,7 +56,7 @@
             <button @click="handleCard(card)">{{ card.isNew ? 'Save' : 'Update' }}</button>
             <template v-if="!card.isNew">
               <button class="mobile-remove" @click="$emit('deleteCard', card.id)">Remove</button>
-              <img class="desktop-remove" src="/static/images/reset.png" @click="$emit('deleteCard', card.id)">
+              <img class="desktop-remove" src="/static/images/reset.svg" @click="$emit('deleteCard', card.id)">
             </template>
           </div>
         </div>
@@ -69,12 +69,12 @@
     </div>
     <div class="section">
       <div class="title">
-        <img class="title-icon" src="/static/images/credits.png">
+        <img class="title-icon" src="/static/images/credits.svg">
         GoBambino Credits
       </div>
       <div class="blocks">
         <div class="block">
-          <img class="icon" src="/static/images/credits.png">
+          <img class="icon" src="/static/images/credits.svg">
           <div class="forms">
             <div v-if="!settings.money">Currently, no credits available</div>
             <div v-else>You have {{ settings.money }} credits</div>

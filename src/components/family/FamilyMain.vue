@@ -2,12 +2,12 @@
   <div class="box container">
     <div class="section">
       <div class="title">
-        <img class="title-icon" src="/static/images/kid.png">
+        <img class="title-icon" src="/static/images/kid.svg">
         Kid(s)
       </div>
       <div class="persons" v-if="isLoaded">
         <div class="person" v-for="(kid, i) in kids" :key="i">
-          <img class="icon" src="/static/images/kid.png">
+          <img class="icon" src="/static/images/kid.svg">
           <div class="forms">
             <div>
               <label>Full Name</label>
@@ -22,7 +22,7 @@
             <button @click="savePeson('kid', kid)">{{ kid.isNew ? 'Save' : 'Update' }}</button>
             <template v-if="!kid.isNew">
               <button class="mobile-remove" @click="deletePerson(kid.id)">Remove</button>
-              <img class="desktop-remove" src="/static/images/reset.png" @click="deletePerson(kid.id)">
+              <img class="desktop-remove" src="/static/images/reset.svg" @click="deletePerson(kid.id)">
             </template>
           </div>
         </div>
@@ -35,12 +35,12 @@
     </div>
     <div class="section">
       <div class="title">
-        <img class="title-icon" src="/static/images/user-black.png">
+        <img class="title-icon" src="/static/images/user-black.svg">
         Caregiver(s)
       </div>
       <div class="persons" v-if="isLoaded">
         <div class="person" v-for="(caregiver, i) in caregivers" :key="i">
-          <img class="icon" src="/static/images/user-black.png">
+          <img class="icon" src="/static/images/user-black.svg">
           <div class="forms">
             <div>
               <label>Full Name</label>
@@ -59,7 +59,7 @@
             <button @click="savePeson('caregiver', caregiver)">{{ caregiver.isNew ? 'Save' : 'Update' }}</button>
             <template v-if="!caregiver.isNew">
               <button class="mobile-remove" @click="deletePerson(caregiver.id)">Remove</button>
-              <img class="desktop-remove" src="/static/images/reset.png" @click="deletePerson(caregiver.id)">
+              <img class="desktop-remove" src="/static/images/reset.svg" @click="deletePerson(caregiver.id)">
             </template>
           </div>
         </div>

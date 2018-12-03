@@ -43,7 +43,7 @@ export default {
 
 @include desktop {
   .going-list {
-    padding: 0 15px 15px 15px;
+    padding: 0 15px 0 15px;
   }
 
   .item {

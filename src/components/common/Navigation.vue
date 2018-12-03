@@ -1,7 +1,7 @@
 <template>
   <div class="navigation">
     <div class="back">
-      <img src="/static/images/arrow-left.png">
+      <img src="/static/images/arrow-left.svg">
       <router-link to="/">Back to Activities</router-link>
     </div>
     <div class="title">{{ title }}</div>

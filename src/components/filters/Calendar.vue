@@ -1,9 +1,9 @@
 <template>
   <div class="calendar">
     <div class="header">
-      <div @click="prev"><img src="/static/images/arrow-left.png"></div>
+      <div @click="prev"><img src="/static/images/arrow-left.svg"></div>
       <div>{{ monthName }} {{ selectedDate.year }}</div>
-      <div @click="next"><img src="/static/images/arrow-right.png"></div>
+      <div @click="next"><img src="/static/images/arrow-right.svg"></div>
     </div>
     <div class="table">
       <div class="row">

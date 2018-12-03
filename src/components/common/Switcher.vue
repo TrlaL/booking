@@ -27,11 +27,6 @@ export default {
       default: false,
       type: Boolean
     }
-  },
-  watch: {
-    value (value) {
-      this.active = value
-    }
   }
 }
 </script>

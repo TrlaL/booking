@@ -9,30 +9,37 @@ import PastBooked from '@/views/PastBooked'
 export default [
   {
     path: '/',
+    name: 'home',
     component: Activities
   },
   {
     path: '/account',
+    name: 'account',
     component: Account
   },
   {
-    path: '/booking',
+    path: '/booking/:id',
+    name: 'booking',
     component: Booking
   },
   {
     path: '/family',
+    name: 'family',
     component: Family
   },
   {
     path: '/favorites',
+    name: 'favorites',
     component: Favorites
   },
   {
     path: '/going',
+    name: 'going',
     component: Going
   },
   {
     path: '/past-booked',
+    name: 'past-booked',
     component: PastBooked
   }
 ]

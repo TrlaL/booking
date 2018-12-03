@@ -2,20 +2,20 @@
   <div class="activities-controls">
     <div class="controls">
       <div class="filters" :class="className" @click="toggleFilters">
-        <img src="/static/images/filters.png">
+        <img class="icon" src="/static/images/filters.svg">
         Filters
-        <img :src="`/static/images/${filtersArrow}`">
+        <img class="icon" :src="`/static/images/${filtersArrow}`">
       </div>
       <div class="search">
         <input v-model="query" @keydown.enter="search" placeholder="Try “Chess” or “Ballet”" type="text">
-        <img class="reset" @click="reset" src="/static/images/reset-input.png">
+        <img class="reset" @click="reset" src="/static/images/reset-input.svg">
         <button @click="search">
-          <img src="/static/images/search.png">
+          <img src="/static/images/search.svg">
         </button>
       </div>
       <Menu />
     </div>
-    <ActivitiesFilters :visible="filtersVisible" @close="filtersVisible = false" />
+    <ActivitiesFilters />
   </div>
 </template>
 
@@ -30,8 +30,7 @@ export default {
   },
   data () {
     return {
-      filtersVisible: false,
-      query: ''
+      query: this.searchQuery
     }
   },
   computed: {
@@ -41,20 +40,29 @@ export default {
       }
     },
     filtersArrow () {
-      return this.filters ? 'arrow-top.png' : 'arrow-bottom.png'
+      return this.filters ? 'arrow-top.svg' : 'arrow-bottom.svg'
+    },
+    isFiltersOpened () {
+      return this.$store.getters.isFiltersOpened
+    },
+    searchQuery () {
+      return this.$store.getters.searchQuery
     }
   },
   methods: {
     reset () {
-      if (!this.query.length) return
-      this.query = ''
-      this.$emit('search', this.query)
+      this.$store.commit('SET_SEARCH_QUERY', '')
     },
-    search (reset = false) {
-      this.$emit('search', this.query)
+    search () {
+      this.$store.commit('SET_SEARCH_QUERY', this.query)
     },
     toggleFilters () {
-      this.filtersVisible = !this.filtersVisible
+      this.$store.commit('SET_FILTERS_OPENED', !this.isFiltersOpened)
+    }
+  },
+  watch: {
+    searchQuery (query) {
+      this.query = query
     }
   }
 }
@@ -73,9 +81,14 @@ export default {
     display: flex;
     flex: 0 1 1;
     justify-content: space-between;
-    margin-bottom: 40px;
     max-height: 40px;
     user-select: none;
+
+    .icon {
+      height: 30px;
+      object-fit: contain;
+      width: 30px;
+    }
 
     .filters,
     .search {

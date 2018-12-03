@@ -1,6 +1,6 @@
 <template>
   <div class="container box">
-    <ActivitiesControls @search="search" />
+    <ActivitiesControls />
     <ActivityMenu @changeItem="changeActivitiesType" />
     <ActivitiesList :items="items" />
     <Loading v-show="!isLoadedItems" />
@@ -30,8 +30,7 @@ export default {
       items: [],
       itemsPerPage: 10,
       page: 1,
-      pagesCount: 0,
-      searchQuery: ''
+      pagesCount: 0
     }
   },
   computed: {
@@ -46,6 +45,9 @@ export default {
     },
     paginationVisible () {
       return this.isLoadedItems && this.items.length && !this.isLastPage
+    },
+    searchQuery () {
+      return this.$store.getters.searchQuery
     }
   },
   created () {
@@ -85,7 +87,6 @@ export default {
       }, this.searchQuery)
     },
     search (value) {
-      this.searchQuery = value
       this.items = []
       this.page = 1
       this.getActivities({
@@ -106,6 +107,9 @@ export default {
           ...filters
         }
       }, this.searchQuery)
+    },
+    searchQuery (query) {
+      this.search(query)
     }
   }
 }

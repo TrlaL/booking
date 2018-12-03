@@ -13,29 +13,26 @@
           <span>Provided by: <u class="bold">{{ item.merchantName }}</u></span>
         </div>
         <div class="place">
-          <img class="icon" src="/static/images/place.png">
+          <img class="icon" src="/static/images/place.svg">
           {{ item.address }}
         </div>
       </div>
       <div class="controls">
         <div class="icons">
-          <img src="/static/images/share.png">
+          <img src="/static/images/share.svg">
           <img @click="toggleFavorite" :src="favoriteIcon">
         </div>
         <div class="price">${{ item.price }}</div>
-        <router-link class="book" to="/booking">Book</router-link>
+        <button class="book" @click="book">Book</button>
         <div class="seats">Seats Left: {{ seatsLeft }}</div>
       </div>
     </div>
-
     <div class="mobile-content">
       <div class="front">
         <img class="image" :src="frontImage">
         <div class="provided">Provided by: {{ item.merchantName }}</div>
         <div class="date">Friday, August 31st<br>3:00PM to 4pm</div>
-        <router-link class="book" to="/booking">
-          <div class="price">${{ item.price }}</div>
-        </router-link>
+        <div class="price" @click="book">${{ item.price }}</div>
       </div>
       <div class="section">
         <div class="info">
@@ -44,16 +41,16 @@
           <div>Seats left: 3</div>
         </div>
         <div class="arrow">
-          <img src="/static/images/arrow-right.png">
+          <img src="/static/images/arrow-right.svg">
         </div>
       </div>
       <div class="place">
         <div class="target">
-          <img class="icon" src="/static/images/place.png">
+          <img class="icon" src="/static/images/place.svg">
           {{ item.address }}
         </div>
         <div class="icons">
-          <img src="/static/images/share.png">
+          <img src="/static/images/share.svg">
           <img @click="toggleFavorite" :src="favoriteIcon">
         </div>
       </div>
@@ -65,6 +62,16 @@
 import { setFavorite, unsetFavorite } from '@/api/favorites'
 
 export default {
+  props: {
+    item: {
+      required: true,
+      type: Object
+    },
+    type: {
+      default: 'activity',
+      type: String
+    }
+  },
   data () {
     return {
       imagesPath: '/static/images/'
@@ -72,7 +79,7 @@ export default {
   },
   computed: {
     favoriteIcon () {
-      return `${this.imagesPath}${this.item.isFavorite ? 'my-favorite.png' : 'favorite.png'}`
+      return `${this.imagesPath}${this.item.isFavorite ? 'my-favorite.svg' : 'favorite.svg'}`
     },
     frontImage () {
       return this.item.photos ? this.item.photos[0] : ''
@@ -97,6 +104,9 @@ export default {
     }
   },
   methods: {
+    book () {
+      this.$router.push(`/booking/${this.item.id}`)
+    },
     getHours (date) {
       return date.toLocaleString('en-US', { hour: 'numeric', hour12: true })
     },
@@ -114,16 +124,6 @@ export default {
     unsetFavorite () {
       this.item.isFavorite = false
       unsetFavorite(this.item.id, null)
-    }
-  },
-  props: {
-    item: {
-      required: true,
-      type: Object
-    },
-    type: {
-      default: 'activity',
-      type: String
     }
   }
 }
@@ -224,6 +224,7 @@ export default {
       border: 0;
       border-radius: 5px;
       color: #fff;
+      cursor: pointer;
       font-size: 15px;
       padding: 10px 0 10px 0;
       text-align: center;
@@ -274,6 +275,7 @@ export default {
       border-radius: 25px 0 0 25px;
       bottom: 15px;
       color: #fff;
+      cursor: pointer;
       padding: 7px 25px 7px 35px;
       position: absolute;
       right: 0;

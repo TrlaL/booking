@@ -1,20 +1,68 @@
 <template>
   <div class="header">
     <div class="container">
-      <router-link to="/">
-        <div class="logo"></div>
-      </router-link>
-      <div class="desktop-links">
-        <a href="#">Browse Activities</a>
-        <a href="#">Browse Featured Providers </a>
-        <a class="button" href="#">FEATURE YOUR<br>ACTIVITIES</a>
+      <div class="desktop">
+        <img class="logo" src="/static/images/logo-desktop.svg">
+        <div class="links">
+          <a href="#">Browse Activities</a>
+          <a href="#">Browse Featured Providers</a>
+          <a class="button" href="#">FEATURE YOUR<br>ACTIVITIES</a>
+        </div>
       </div>
-      <div class="mobile-controls">
-        <img src="/static/images/user-small.png">
+      <div class="mobile">
+        <img class="logo" src="/static/images/logo-mobile.svg">
+        <template v-if="isHome">
+          <div class="filters">
+            <button :class="{ opened: isFiltersOpened }" @click="toggleFilters">Filters</button>
+          </div>
+          <div class="search">
+            <input placeholder="Try “Chess”" type="text" v-model="query">
+            <div class="reset" @click="reset"><img src="/static/images/reset-input.svg"></div>
+            <button @click="search"><img src="/static/images/search.svg"></button>
+          </div>
+        </template>
+        <img class="icon" src="/static/images/user-black.svg">
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      query: this.searchQuery
+    }
+  },
+  computed: {
+    isFiltersOpened () {
+      return this.$store.getters.isFiltersOpened
+    },
+    isHome () {
+      return this.$route.path === '/'
+    },
+    searchQuery () {
+      return this.$store.getters.searchQuery
+    }
+  },
+  methods: {
+    reset () {
+      this.$store.commit('SET_SEARCH_QUERY', '')
+    },
+    search () {
+      this.$store.commit('SET_SEARCH_QUERY', this.query)
+    },
+    toggleFilters () {
+      this.$store.commit('SET_FILTERS_OPENED', !this.isFiltersOpened)
+    }
+  },
+  watch: {
+    searchQuery (query) {
+      this.query = query
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @include desktop {
@@ -24,68 +72,131 @@
   }
 
   .container {
+    height: 100%;
+  }
+
+  .desktop {
     align-items: center;
     display: flex;
     height: 100%;
     justify-content: space-between;
   }
 
-  .logo {
-    background-image: url('/static/images/logo-desktop.png');
-    height: 56px;
-    width: 75px;
-  }
-
-  .desktop-links {
+  .links {
     align-items: center;
     display: flex;
-    font-size: 14px;
+    justify-content: center;
 
     a {
-      color: #FFFFFF;
+      color: #fff;
+      font-size: 14px;
       font-weight: bold;
-      margin-right: 42px;
+      margin-right: 40px;
       text-decoration: none;
     }
 
     a:last-child {
-      margin-right: 0;
+      margin: 0;
     }
 
     .button {
-      background: #fff;
+      background: #ffffff;
       border-radius: 5px;
       color: #69BCB5;
-      font-size: 14px;
-      font-weight: normal;
-      padding: 5px 25px 5px 25px;
+      font-weight: 500;
+      padding: 6px 18px 6px 18px;
       text-align: center;
     }
   }
 
-  .mobile-controls {
+  .mobile {
     display: none;
   }
 }
 
 @include mobile {
-  .header {
-    padding: 8px;
-  }
-
-  .container {
+  .mobile {
     align-items: center;
+    box-sizing: unset;
     display: flex;
     justify-content: space-between;
+    height: 30px;
+    padding: 7px;
   }
 
   .logo {
-    background-image: url('/static/images/logo-mobile.png');
-    height: 25px;
-    width: 45px;
+    margin-right: 6px;
   }
 
-  .desktop-links {
+  .filters {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    margin-right: 6px;
+
+    button {
+      background: #fff;
+      border: 1px solid #828282;
+      border-radius: 5px;
+      color: #828282;
+      cursor: pointer;
+      font: inherit;
+      height: 100%;
+      width: 100%;
+    }
+
+    button.opened {
+      background: #ddd;
+    }
+  }
+
+  .search {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    margin-right: 6px;
+
+    input {
+      border: 1px solid #828282;
+      border-right: 0;
+      border-radius: 5px 0 0 5px;
+      height: 100%;
+      padding: 0 10px 0 10px;
+      width: 100%;
+    }
+
+    input::placeholder {
+      color: #BDBDBD;
+    }
+
+    button {
+      background: #D9429F;
+      border: 0;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      height: 100%;
+    }
+
+    .reset {
+      align-items: center;
+      border-top: 1px solid #828282;
+      border-bottom: 1px solid #828282;
+      cursor: pointer;
+      display: flex;
+      height: 100%;
+      padding: 5px;
+    }
+  }
+
+  .icon {
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+  }
+
+  .desktop {
     display: none;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="activities-filters" v-show="visible">
+    <div class="activities-filters" v-show="isFiltersOpened">
       <div class="columns">
         <div class="column">
           <div class="filter">
@@ -52,15 +52,15 @@
             <div class="title">Additional filters:</div>
             <div class="line">
               Caregiver must be present
-              <Checkbox size="20" />
+              <Checkbox size="20" v-model="onlyWithParents" @input="setAdditional('onlyWithParents')" />
             </div>
             <div class="line">
               Sleepaway camps only
-              <Checkbox size="20" />
+              <Checkbox size="20" v-model="onlyOvernightCamp" @input="setAdditional('onlyOvernightCamp')" />
             </div>
             <div class="line">
               Weekend activities only
-              <Checkbox size="20" />
+              <Checkbox size="20" v-model="onlyWeekend" @input="setAdditional('onlyWeekend')" />
             </div>
           </div>
         </div>
@@ -98,10 +98,12 @@ export default {
   },
   data () {
     return {
-      additional: [false, false, false],
       ages: null,
       categories: [1, 2, 3, 4],
       filters: {},
+      onlyWithParents: false,
+      onlyOvernightCamp: false,
+      onlyWeekend: false,
       price: [0, 200],
       sliderOptions: {
         bgStyle: {
@@ -121,6 +123,9 @@ export default {
     }
   },
   computed: {
+    isFiltersOpened () {
+      return this.$store.getters.isFiltersOpened
+    },
     priceSliderOptions () {
       return {
         ...this.sliderOptions,
@@ -138,19 +143,21 @@ export default {
   },
   methods: {
     apply () {
-      this.$emit('close', true)
-      this.filters.categories = this.categories
+      this.$store.commit('SET_FILTERS_OPENED', false)
       this.$store.commit('SET_FILTERS', this.filters)
     },
     cancel () {
       this.filters = {}
       this.ages = null
       this.categories = [1, 2, 3, 4]
+      this.onlyWithParents = false
+      this.onlyOvernightCamp = false
+      this.onlyWeekend = false
       this.price = [0, 200]
       this.time = [8, 20]
       this.timeStamp = null
       this.$store.commit('SET_FILTERS', {})
-      this.$emit('close', true)
+      this.$store.commit('SET_FILTERS_OPENED', false)
     },
     resetPrice () {
       this.price = [0, 200]
@@ -172,6 +179,14 @@ export default {
         agesTo: this.ages[1]
       }]
     },
+    setAdditional (additional) {
+      let currentValue = this[additional]
+      if (currentValue) {
+        this.filters[additional] = true
+      } else {
+        delete this.filters[additional]
+      }
+    },
     setDate () {
       if (!this.timeStamp) return delete this.filters.scheduleFrom
       let date = new Date(this.timeStamp)
@@ -186,14 +201,11 @@ export default {
       this.filters.timeStartTo = this.translateHour(this.time[1])
     }
   },
-  props: {
-    visible: {
-      required: true,
-      type: Boolean
-    }
-  },
   watch: {
-    visible (value) {
+    categories (array) {
+      this.filters.categories = array
+    },
+    isFiltersOpened (value) {
       if (!value) return
       let timer = setTimeout(() => {
         this.$refs.timeSlider.refresh()
@@ -279,7 +291,17 @@ export default {
   }
 }
 
+@include desktop {
+  .activities-filters {
+    margin-top: 40px;
+  }
+}
+
 @include mobile {
+  .activities-filters {
+    border-top: 1px solid #ddd;
+  }
+
   .columns {
     flex-direction: column;
     padding: 20px;

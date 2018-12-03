@@ -31,7 +31,7 @@ export default {
   computed: {
     iconSrc () {
       let path = '/static/images/'
-      return `${path}${this.isOpened ? 'arrow-top.png' : 'arrow-bottom.png'}`
+      return `${path}${this.isOpened ? 'arrow-top.svg' : 'arrow-bottom.svg'}`
     },
     isOpened () {
       return this.openedId === this.id
