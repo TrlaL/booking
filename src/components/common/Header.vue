@@ -2,9 +2,7 @@
   <div class="header">
     <div class="container">
       <div class="desktop">
-        <router-link to="/">
-          <img class="logo" src="/static/images/logo-desktop.svg">
-        </router-link>
+        <img class="logo" src="/static/images/logo-desktop.svg" @click="goHome">
         <div class="links">
           <a href="#">Browse Activities</a>
           <a href="#">Browse Featured Providers</a>
@@ -12,9 +10,7 @@
         </div>
       </div>
       <div class="mobile">
-        <router-link to="/">
-          <img class="logo" src="/static/images/logo-mobile.svg">
-        </router-link>
+        <img class="logo" src="/static/images/logo-mobile.svg" @click="goHome">
         <template v-if="isHome">
           <div class="filters">
             <button :class="{ opened: isFiltersOpened }" @click="toggleFilters">Filters</button>
@@ -50,6 +46,9 @@ export default {
     }
   },
   methods: {
+    goHome () {
+      this.$router.push('/')
+    },
     reset () {
       this.$store.commit('SET_SEARCH_QUERY', '')
     },
@@ -84,6 +83,10 @@ export default {
     display: flex;
     height: 100%;
     justify-content: space-between;
+  }
+
+  .logo {
+    cursor: pointer;
   }
 
   .links {
@@ -129,6 +132,7 @@ export default {
   }
 
   .logo {
+    cursor: pointer;
     margin-right: 6px;
   }
 

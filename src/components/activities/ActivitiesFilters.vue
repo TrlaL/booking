@@ -67,7 +67,7 @@
         <div class="column">
           <div class="filter">
             <div class="title">Select location/ neighborhood(s):</div>
-            <DropDownList title="Manhattan" :id="1" :opened="true" :items="[1, 2, 3, 4, 5]" />
+            <DropDownList title="Manhattan" :id="1" :items="[1, 2, 3, 4, 5]" />
             <DropDownList title="Brooklyn" :id="2" :items="[1, 2, 3, 4, 5, 6]" />
             <DropDownList title="Queens" :id="3" :items="[1, 2, 3, 4]" />
           </div>
