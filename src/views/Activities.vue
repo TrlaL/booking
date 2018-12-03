@@ -1,7 +1,7 @@
 <template>
   <div class="container box">
     <ActivitiesControls />
-    <ActivityTypes @changeItem="changeActivitiesType" />
+    <ActivityTypes @changeType="changeActivityType" />
     <ActivitiesList :items="items" />
     <Loading v-show="!isLoadedItems" />
     <div class="pagination" v-show="paginationVisible">
@@ -51,7 +51,9 @@ export default {
     }
   },
   created () {
-    this.getActivities()
+    this.getActivities({
+      filters: { activityTypeId: this.activityTypeId }
+    })
   },
   methods: {
     async getActivities (params, query) {
@@ -63,10 +65,10 @@ export default {
         this.pagesCount = response.data.pages.pagesCount
       }
     },
-    changeActivitiesType (index) {
+    changeActivityType (type) {
       this.items = []
       this.page = 1
-      this.activityTypeId = index + 1
+      this.activityTypeId = type
       this.getActivities({
         filters: {
           activityTypeId: this.activityTypeId,

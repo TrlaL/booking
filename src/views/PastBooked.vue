@@ -2,7 +2,7 @@
   <div class="container">
     <Navigation title="PAST BOOKED" />
     <div class="box">
-      <ActivityTypes @changeItem="changeActivitiesType" />
+      <ActivityTypes @changeType="changeActivityType" />
       <PastBookedList :items="items" />
       <Loading v-show="!isLoadedItems" />
       <div class="pagination" v-show="paginationVisible">
@@ -28,6 +28,7 @@ export default {
   },
   data () {
     return {
+      activityTypeId: 1,
       items: [],
       itemsPerPage: 10,
       page: 1,
@@ -46,7 +47,7 @@ export default {
     }
   },
   created () {
-    this.getPastActivities({ activityTypeId: 1 })
+    this.getPastActivities({ activityTypeId: this.activityTypeId })
   },
   methods: {
     async getPastActivities (params) {
@@ -58,10 +59,10 @@ export default {
         this.pagesCount = response.data.pages.pagesCount
       }
     },
-    changeActivitiesType (index) {
+    changeActivityType (type) {
       this.items = []
       this.page = 1
-      this.activityTypeId = index + 1
+      this.activityTypeId = type
       this.getPastActivities({ activityTypeId: this.activityTypeId })
     },
     getNextPage () {

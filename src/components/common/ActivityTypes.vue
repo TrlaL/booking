@@ -32,7 +32,7 @@ export default {
     select (index) {
       if (!this.isLoadedItems) return
       this.selected = index
-      this.$emit('changeItem', index)
+      this.$emit('changeType', index + 1)
     }
   }
 }
