@@ -16,10 +16,9 @@ export default {
   components: {
     MenuButton
   },
-  props: {
-    title: {
-      required: true,
-      type: String
+  computed: {
+    title () {
+      return this.$route.meta.title
     }
   }
 }

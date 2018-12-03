@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Modal id="account" class="modal">{{ message }}</Modal>
-    <Navigation title="MY ACCOUNT" />
+    <Navigation />
     <AccountMain
       :cards="cards"
       :credits="credits"

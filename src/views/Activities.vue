@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Navigation :title="title" />
+    <Navigation />
     <div class="box">
       <ActivitiesTypes @changeType="changeActivityType" />
       <ActivitiesList :items="items" />
@@ -83,7 +83,7 @@ export default {
       switch (type) {
         case 'favorites':
           this.api = getFavorites
-          this.title = 'MY FAVORITES'
+          this.title = 'FAVORITES'
           break
         case 'going':
           this.api = getCurrentActivities

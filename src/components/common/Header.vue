@@ -21,6 +21,7 @@
             <button @click="search"><img src="/static/images/search.svg"></button>
           </div>
         </template>
+        <div class="title" v-else>{{ title }}</div>
         <img class="icon" src="/static/images/user-black.svg">
       </div>
     </div>
@@ -43,6 +44,9 @@ export default {
     },
     searchQuery () {
       return this.$store.getters.searchQuery
+    },
+    title () {
+      return this.$route.meta.title || ''
     }
   },
   methods: {
@@ -204,6 +208,12 @@ export default {
     cursor: pointer;
     height: 34px;
     width: 34px;
+  }
+
+  .title {
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
   }
 
   .desktop {

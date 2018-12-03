@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Modal id="family" class="modal">{{ message }}</Modal>
-    <Navigation title="KIDS AND CAREGIVERS" />
+    <Navigation />
     <FamilyMain
       :isLoaded="isLoaded"
       :members="members"

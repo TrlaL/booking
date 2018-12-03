@@ -5,11 +5,11 @@
     <img class="icon" src="/static/images/arrow-bottom.svg">
     <transition name="fade">
       <div class="list" v-show="visible" @click="handle(false)">
-        <router-link to="/favorites">My Favorites</router-link>
+        <router-link to="/favorites">Favorites</router-link>
         <router-link to="/going">I’m Going</router-link>
-        <router-link to="/family">Kids & Caregivers</router-link>
         <router-link to="/past-booked">Past Booked</router-link>
-        <router-link to="/account">Account</router-link>
+        <router-link to="/family">My Family</router-link>
+        <router-link to="/account">My Account</router-link>
       </div>
     </transition>
   </div>

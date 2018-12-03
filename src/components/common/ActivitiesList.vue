@@ -1,12 +1,7 @@
 <template>
   <div class="activities-list">
     <div class="list" v-if="items.length">
-      <Activity
-        class="item"
-        v-for="(item, i) in items"
-        :key="i"
-        :item="item"
-      />
+      <Activity class="item" v-for="(item, i) in items" :key="i" :item="item" />
     </div>
     <div class="empty" v-else-if="isLoadedItems && !items.length">It's empty here</div>
   </div>
