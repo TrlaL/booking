@@ -20,6 +20,12 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      default: 0,
+      type: Number
+    }
+  },
   data () {
     return {
       currentDate: {},
@@ -90,12 +96,6 @@ export default {
       let time = new Date(this.selectedDate.year, this.selectedDate.month, date).getTime()
       this.val = (this.val === time) ? 0 : time
       this.$emit('input', this.val)
-    }
-  },
-  props: {
-    value: {
-      default: 0,
-      type: Number
     }
   },
   watch: {

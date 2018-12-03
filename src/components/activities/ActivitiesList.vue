@@ -19,15 +19,15 @@ export default {
   components: {
     Activity
   },
-  computed: {
-    isLoadedItems () {
-      return this.$store.getters.isLoadedItems
-    }
-  },
   props: {
     items: {
       required: true,
       type: Array
+    }
+  },
+  computed: {
+    isLoadedItems () {
+      return this.$store.getters.isLoadedItems
     }
   }
 }

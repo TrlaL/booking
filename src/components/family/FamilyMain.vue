@@ -80,6 +80,16 @@ export default {
   components: {
     Loading
   },
+  props: {
+    isLoaded: {
+      required: true,
+      type: Boolean
+    },
+    members: {
+      required: true,
+      type: Array
+    }
+  },
   computed: {
     caregivers () {
       return this.members.filter(member => !member.isChild)
@@ -97,16 +107,6 @@ export default {
     },
     savePeson (person, data) {
       this.$emit('savePerson', person, data)
-    }
-  },
-  props: {
-    isLoaded: {
-      required: true,
-      type: Boolean
-    },
-    members: {
-      required: true,
-      type: Array
     }
   }
 }

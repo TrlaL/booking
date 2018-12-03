@@ -7,7 +7,7 @@
       <div class="section">
         <div class="title">{{ item.name }}</div>
         <div class="table">
-          <span>{{ item.startDateTime }}</span>
+          <span>{{ item.scheduleFrom }}</span>
           <span>Ages: {{ ageFrom }} - {{ ageTo }}</span>
           <span>Time: {{ startTime }} - {{ endTime }}</span>
           <span>Provided by: <u class="bold">{{ item.merchantName }}</u></span>
@@ -31,7 +31,7 @@
       <div class="front">
         <img class="image" :src="frontImage">
         <div class="provided">Provided by: {{ item.merchantName }}</div>
-        <div class="date">Friday, August 31st<br>3:00PM to 4pm</div>
+        <div class="date">{{ item.scheduleFrom }}<br>{{ startTime }} to {{ endTime }}</div>
         <div class="price" @click="book">${{ item.price }}</div>
       </div>
       <div class="section">

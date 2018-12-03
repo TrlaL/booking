@@ -19,6 +19,16 @@ export default {
   components: {
     Switcher
   },
+  props: {
+    person: {
+      required: true,
+      type: Object
+    },
+    price: {
+      default: 0,
+      type: Number
+    }
+  },
   data () {
     return {
       isActive: false
@@ -35,16 +45,6 @@ export default {
   methods: {
     handle () {
       this.$emit('changePerson', this.person.id, this.isActive)
-    }
-  },
-  props: {
-    person: {
-      required: true,
-      type: Object
-    },
-    price: {
-      default: 0,
-      type: Number
     }
   }
 }

@@ -4,6 +4,12 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      default: false,
+      type: Boolean
+    }
+  },
   data () {
     return {
       active: this.value
@@ -20,12 +26,6 @@ export default {
     toggle () {
       this.active = !this.active
       this.$emit('input', this.active)
-    }
-  },
-  props: {
-    value: {
-      default: false,
-      type: Boolean
     }
   }
 }

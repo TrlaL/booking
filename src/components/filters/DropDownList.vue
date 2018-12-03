@@ -18,9 +18,28 @@
 
 <script>
 import Checkbox from '../common/Checkbox'
+
 export default {
   components: {
     Checkbox
+  },
+  props: {
+    id: {
+      required: true,
+      type: Number
+    },
+    title: {
+      required: true,
+      type: String
+    },
+    items: {
+      required: true,
+      type: Array
+    },
+    opened: {
+      default: false,
+      type: Boolean
+    }
   },
   data () {
     return {
@@ -61,24 +80,6 @@ export default {
     toggleAllItems () {
       this.selected.fill(this.commonCheckbox)
       this.emit()
-    }
-  },
-  props: {
-    id: {
-      required: true,
-      type: Number
-    },
-    title: {
-      required: true,
-      type: String
-    },
-    items: {
-      required: true,
-      type: Array
-    },
-    opened: {
-      default: false,
-      type: Boolean
     }
   }
 }

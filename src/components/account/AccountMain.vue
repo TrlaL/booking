@@ -97,18 +97,6 @@ export default {
     AccountModal,
     Loading
   },
-  methods: {
-    addCredit () {
-      this.$store.commit('SET_MODAL_VISIBLE', { id: 'account-modal', visible: true })
-    },
-    handleCard (card) {
-      if (card.isNew) {
-        this.$emit('createCard', card)
-      } else {
-        this.$emit('updateCard', card)
-      }
-    }
-  },
   props: {
     cards: {
       required: true,
@@ -125,6 +113,18 @@ export default {
     settings: {
       required: true,
       type: Object
+    }
+  },
+  methods: {
+    addCredit () {
+      this.$store.commit('SET_MODAL_VISIBLE', { id: 'account-modal', visible: true })
+    },
+    handleCard (card) {
+      if (card.isNew) {
+        this.$emit('createCard', card)
+      } else {
+        this.$emit('updateCard', card)
+      }
     }
   }
 }

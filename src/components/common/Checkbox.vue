@@ -7,6 +7,18 @@
 
 <script>
 export default {
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
+  props: {
+    checked: null,
+    size: {
+      default: '10',
+      type: String
+    },
+    value: null
+  },
   computed: {
     buttonClasses () {
       return {
@@ -43,18 +55,6 @@ export default {
       }
       this.$emit('input', checked)
     }
-  },
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
-  props: {
-    checked: null,
-    size: {
-      default: '10',
-      type: String
-    },
-    value: null
   }
 }
 </script>

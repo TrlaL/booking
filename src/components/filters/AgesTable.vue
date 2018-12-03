@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  props: ['value'],
   data () {
     return {
       items: [
@@ -46,11 +47,6 @@ export default {
     setItem (i) {
       this.selected = (this.selected === i) ? null : i
       this.$emit('input', this.selected !== null ? this.items[i].value : null)
-    }
-  },
-  props: {
-    value: {
-      type: null
     }
   },
   watch: {
