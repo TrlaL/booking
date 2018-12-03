@@ -65,7 +65,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 99;
+  z-index: 9999;
 }
 
 .blackout {

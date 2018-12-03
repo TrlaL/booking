@@ -1,10 +1,13 @@
 <template>
-  <div class="menu-button" @mouseenter="handle(true)" @mouseleave="handle(false)">
-    <img class="icon" src="/static/images/user-gray.svg">
-    <div>My Account</div>
-    <img class="icon" src="/static/images/arrow-bottom.svg">
+  <div class="menu-button" @click="handle">
+    <div class="desktop">
+      <img class="icon" src="/static/images/user-gray.svg">
+      <div class="current">{{ title }}</div>
+      <img class="icon" src="/static/images/arrow-bottom.svg">
+    </div>
+    <img class="icon mobile" src="/static/images/user-black.svg">
     <transition name="fade">
-      <div class="list" v-show="visible" @click="handle(false)">
+      <div class="list" v-show="menuListVisible">
         <router-link to="/favorites">Favorites</router-link>
         <router-link to="/going">I’m Going</router-link>
         <router-link to="/past-booked">Past Booked</router-link>
@@ -17,68 +20,85 @@
 
 <script>
 export default {
-  data () {
-    return {
-      visible: false
+  computed: {
+    menuListVisible () {
+      return this.$store.getters.menuListVisible
+    },
+    title () {
+      return this.$route.meta.title
     }
   },
   methods: {
-    handle (visible) {
-      this.visible = visible
+    handle () {
+      this.$store.commit('SET_MENU_LIST_VISIBLE', !this.menuListVisible)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.icon {
+  height: 30px;
+  object-fit: contain;
+  width: 30px;
+}
+
+.menu-button {
+  cursor: pointer;
+  position: relative;
+}
+
+.list {
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  min-width: 150px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 2px);
+  width: 100%;
+  z-index: 100;
+
+  a {
+    color: #4F4F4F;
+    display: block;
+    padding: 10px 18px 10px 18px;
+    text-decoration: none;
+  }
+
+  a:hover {
+    background: #eee;
+  }
+}
+
 @include desktop {
   .menu-button {
+    width: 250px;
+  }
+
+  .desktop {
     align-items: center;
     border: 1px solid #D9429F;
     border-radius: 5px;
     color: #D9429F;
-    cursor: pointer;
     display: flex;
-    flex: 1;
-    font-size: 17px;
     justify-content: space-between;
-    max-width: 250px;
-    padding: 5px 17px 5px 17px;
-    position: relative;
-    z-index: 1;
+    padding: 5px 25px 5px 25px;
   }
 
-  .icon {
-    height: 30px;
-    object-fit: contain;
-    width: 30px;
-  }
-
-  .list {
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    left: 0;
-    position: absolute;
-    top: calc(100% + 1px);
-    width: 100%;
-
-    a {
-      color: #4F4F4F;
-      padding: 5px 10px 5px 10px;
-      text-decoration: none;
-    }
-
-    a:hover {
-      background: #eee;
-    }
+  .mobile {
+    display: none;
   }
 }
 
 @include mobile {
   .menu-button {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+  }
+
+  .desktop {
     display: none;
   }
 }

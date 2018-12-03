@@ -22,14 +22,19 @@
           </div>
         </template>
         <div class="title" v-else>{{ title }}</div>
-        <img class="icon" src="/static/images/user-black.svg">
+        <MenuButton />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import MenuButton from './MenuButton'
+
 export default {
+  components: {
+    MenuButton
+  },
   data () {
     return {
       query: this.searchQuery
@@ -46,7 +51,7 @@ export default {
       return this.$store.getters.searchQuery
     },
     title () {
-      return this.$route.meta.title || ''
+      return this.$route.meta.title
     }
   },
   methods: {

@@ -8,6 +8,7 @@ export default new Vuex.Store({
     filters: {},
     isFiltersOpened: false,
     isLoadedItems: true,
+    menuListVisible: false,
     modals: {},
     openedDropDownId: 1,
     searchQuery: ''
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     isLoadedItems (state) {
       return state.isLoadedItems
+    },
+    menuListVisible (state) {
+      return state.menuListVisible
     },
     modals (state) {
       return state.modals
@@ -44,6 +48,9 @@ export default new Vuex.Store({
     },
     SET_LOADED_STATUS (state, status) {
       state.isLoadedItems = status
+    },
+    SET_MENU_LIST_VISIBLE (state, visible) {
+      state.menuListVisible = visible
     },
     SET_MODAL_VISIBLE (state, params) {
       Vue.set(state.modals, params.id, params.visible)
