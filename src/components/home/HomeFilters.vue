@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="activities-filters" v-show="isFiltersOpened">
+    <div class="home-filters" v-show="isFiltersOpened">
       <div class="columns">
         <div class="column">
           <div class="filter">
@@ -292,13 +292,13 @@ export default {
 }
 
 @include desktop {
-  .activities-filters {
+  .home-filters {
     margin-top: 40px;
   }
 }
 
 @include mobile {
-  .activities-filters {
+  .home-filters {
     border-top: 1px solid #ddd;
   }
 

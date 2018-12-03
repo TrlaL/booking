@@ -3,9 +3,9 @@
     <div class="list" v-if="items.length">
       <Activity
         class="item"
+        v-for="(item, i) in items"
         :key="i"
         :item="item"
-        v-for="(item, i) in items"
       />
     </div>
     <div class="empty" v-else-if="isLoadedItems && !items.length">It's empty here</div>
@@ -35,8 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .empty {
-  background: #fff;
-  font-size: 18px;
+  background: #fff !important;
   padding: 10px;
   text-align: center;
 }
@@ -58,6 +57,10 @@ export default {
 }
 
 @include mobile {
+  .box {
+    all: unset;
+  }
+
   .activities-list {
     background: #eee;
   }
@@ -70,6 +73,5 @@ export default {
   .item:last-child {
     margin: 0;
   }
-
 }
 </style>

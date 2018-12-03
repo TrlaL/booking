@@ -4,7 +4,7 @@
     <div>My Account</div>
     <img class="icon" src="/static/images/arrow-bottom.svg">
     <transition name="fade">
-      <div class="list" v-show="visible">
+      <div class="list" v-show="visible" @click="handle(false)">
         <router-link to="/favorites">My Favorites</router-link>
         <router-link to="/going">I’m Going</router-link>
         <router-link to="/family">Kids & Caregivers</router-link>

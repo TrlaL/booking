@@ -1,5 +1,5 @@
 <template>
-  <div class="activities-controls">
+  <div class="home-controls">
     <div class="controls">
       <div class="filters" :class="className" @click="toggleFilters">
         <img class="icon" src="/static/images/filters.svg">
@@ -15,17 +15,17 @@
       </div>
       <MenuButton />
     </div>
-    <ActivitiesFilters />
+    <HomeFilters />
   </div>
 </template>
 
 <script>
-import ActivitiesFilters from './ActivitiesFilters'
+import HomeFilters from './HomeFilters'
 import MenuButton from '../common/MenuButton'
 
 export default {
   components: {
-    ActivitiesFilters,
+    HomeFilters,
     MenuButton
   },
   data () {
@@ -70,7 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .activities-controls {
+  .home-controls {
     border-bottom: 1px solid #ddd;
     display: flex;
     flex-direction: column;
@@ -143,9 +143,7 @@ export default {
 }
 
 @include mobile {
-  .filters,
-  .search,
-  .menu {
+  .home-controls {
     display: none;
   }
 }

@@ -1,42 +1,44 @@
 <template>
-  <div class="container box">
-    <ActivitiesControls />
-    <ActivityTypes @changeType="changeActivityType" />
-    <ActivitiesList :items="items" />
-    <Loading v-show="!isLoadedItems" />
-    <div class="pagination" v-show="paginationVisible">
-      <a @click="getNextPage">Next Page</a>
+  <div class="container">
+    <Navigation :title="title" />
+    <div class="box">
+      <ActivityTypes @changeType="changeActivityType" />
+      <ActivitiesList :items="items" />
+      <Loading v-show="!isLoadedItems" />
+      <div class="pagination" v-show="paginationVisible">
+        <button @click="getNextPage">Next Page</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ActivitiesControls from '@/components/activities/ActivitiesControls'
 import ActivitiesList from '@/components/activities/ActivitiesList'
 import ActivityTypes from '@/components/common/ActivityTypes'
 import Loading from '@/components/common/Loading'
-import { getActivities } from '@/api/activities'
+import Navigation from '@/components/common/Navigation'
+import { getFavorites } from '@/api/favorites'
+import { getCurrentActivities, getPastActivities } from '@/api/bookings'
 
 export default {
   components: {
-    ActivitiesControls,
     ActivitiesList,
     ActivityTypes,
-    Loading
+    Loading,
+    Navigation
   },
   data () {
     return {
+      api: null,
       activityTypeId: 1,
       items: [],
       itemsPerPage: 10,
       page: 1,
-      pagesCount: 0
+      pagesCount: 0,
+      title: ''
     }
   },
   computed: {
-    filters () {
-      return this.$store.getters.filters
-    },
     isLastPage () {
       return this.page === this.pagesCount
     },
@@ -46,19 +48,18 @@ export default {
     paginationVisible () {
       return this.isLoadedItems && this.items.length && !this.isLastPage
     },
-    searchQuery () {
-      return this.$store.getters.searchQuery
+    type () {
+      return this.$route.name
     }
   },
   created () {
-    this.getActivities({
-      filters: { activityTypeId: this.activityTypeId }
-    })
+    this.setPageType(this.type)
+    this.getActivities({ activityTypeId: this.activityTypeId })
   },
   methods: {
-    async getActivities (params, query) {
+    async getActivities (params) {
       this.$store.commit('SET_LOADED_STATUS', false)
-      let response = await getActivities(params, query)
+      let response = await this.api(params)
       if (response.data.result) {
         this.$store.commit('SET_LOADED_STATUS', true)
         this.items = this.items.concat(response.data.items)
@@ -69,49 +70,39 @@ export default {
       this.items = []
       this.page = 1
       this.activityTypeId = type
-      this.getActivities({
-        filters: {
-          activityTypeId: this.activityTypeId,
-          ...this.filters
-        }
-      }, this.searchQuery)
+      this.getActivities({ activityTypeId: this.activityTypeId })
     },
     getNextPage () {
       this.page = (this.page + 1 > this.pagesCount) ? this.pagesCount : this.page + 1
       this.getActivities({
-        filters: {
-          activityTypeId: this.activityTypeId,
-          ...this.filters
-        },
-        pages: {
-          page: this.page
-        }
-      }, this.searchQuery)
+        activityTypeId: this.activityTypeId,
+        page: this.page
+      })
     },
-    search (value) {
-      this.items = []
-      this.page = 1
-      this.getActivities({
-        filters: {
-          activityTypeId: this.activityTypeId,
-          ...this.filters
-        }
-      }, this.searchQuery)
+    setPageType (type) {
+      switch (type) {
+        case 'favorites':
+          this.api = getFavorites
+          this.title = 'MY FAVORITES'
+          break
+        case 'going':
+          this.api = getCurrentActivities
+          this.title = 'I`M GOING'
+          break
+        case 'past-booked':
+          this.api = getPastActivities
+          this.title = 'PAST BOOKED'
+          break
+      }
     }
   },
   watch: {
-    filters (filters) {
+    type (value) {
       this.items = []
       this.page = 1
-      this.getActivities({
-        filters: {
-          activityTypeId: this.activityTypeId,
-          ...filters
-        }
-      }, this.searchQuery)
-    },
-    searchQuery (query) {
-      this.search(query)
+      this.activityTypeId = 1
+      this.setPageType(value)
+      this.getActivities({ activityTypeId: this.activityTypeId })
     }
   }
 }
@@ -126,10 +117,7 @@ export default {
 }
 
 .pagination {
-  cursor: pointer;
-  font-size: 14px;
   padding: 10px;
   text-align: center;
-  text-decoration: underline;
 }
 </style>
