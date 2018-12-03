@@ -5,16 +5,16 @@
       <router-link to="/">Back to Activities</router-link>
     </div>
     <div class="title">{{ title }}</div>
-    <Menu />
+    <MenuButton />
   </div>
 </template>
 
 <script>
-import Menu from '../common/Menu'
+import MenuButton from '../common/MenuButton'
 
 export default {
   components: {
-    Menu
+    MenuButton
   },
   props: {
     title: {

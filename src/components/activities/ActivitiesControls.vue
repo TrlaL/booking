@@ -13,7 +13,7 @@
           <img src="/static/images/search.svg">
         </button>
       </div>
-      <Menu />
+      <MenuButton />
     </div>
     <ActivitiesFilters />
   </div>
@@ -21,12 +21,12 @@
 
 <script>
 import ActivitiesFilters from './ActivitiesFilters'
-import Menu from '../common/Menu'
+import MenuButton from '../common/MenuButton'
 
 export default {
   components: {
     ActivitiesFilters,
-    Menu
+    MenuButton
   },
   data () {
     return {

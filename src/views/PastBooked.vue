@@ -2,7 +2,7 @@
   <div class="container">
     <Navigation title="PAST BOOKED" />
     <div class="box">
-      <ActivityMenu @changeItem="changeActivitiesType" />
+      <ActivityTypes @changeItem="changeActivitiesType" />
       <PastBookedList :items="items" />
       <Loading v-show="!isLoadedItems" />
       <div class="pagination" v-show="paginationVisible">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ActivityMenu from '@/components/common/ActivityMenu'
+import ActivityTypes from '@/components/common/ActivityTypes'
 import Navigation from '@/components/common/Navigation'
 import Loading from '@/components/common/Loading'
 import PastBookedList from '@/components/past-booked/PastBookedList'
@@ -21,7 +21,7 @@ import { getPastActivities } from '@/api/bookings'
 
 export default {
   components: {
-    ActivityMenu,
+    ActivityTypes,
     Navigation,
     Loading,
     PastBookedList

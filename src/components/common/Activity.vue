@@ -1,6 +1,6 @@
 <template>
   <div class="activities-item">
-    <div class="desktop-content">
+    <div class="desktop">
       <div class="front-image">
         <img :src="frontImage">
       </div>
@@ -27,7 +27,7 @@
         <div class="seats">Seats Left: {{ seatsLeft }}</div>
       </div>
     </div>
-    <div class="mobile-content">
+    <div class="mobile">
       <div class="front">
         <img class="image" :src="frontImage">
         <div class="provided">Provided by: {{ item.merchantName }}</div>
@@ -66,10 +66,6 @@ export default {
     item: {
       required: true,
       type: Object
-    },
-    type: {
-      default: 'activity',
-      type: String
     }
   },
   data () {
@@ -131,7 +127,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .desktop-content {
+  .desktop {
     border: 1px solid #ddd;
     border-radius: 5px;
     display: flex;
@@ -232,13 +228,13 @@ export default {
     }
   }
 
-  .mobile-content {
+  .mobile {
     display: none;
   }
 }
 
 @include mobile {
-  .mobile-content {
+  .mobile {
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -346,7 +342,7 @@ export default {
     }
   }
 
-  .desktop-content {
+  .desktop {
     display: none;
   }
 }

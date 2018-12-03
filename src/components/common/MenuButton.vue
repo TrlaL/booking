@@ -1,7 +1,7 @@
 <template>
-  <div class="menu" @mouseenter="handle(true)" @mouseleave="handle(false)">
+  <div class="menu-button" @mouseenter="handle(true)" @mouseleave="handle(false)">
     <img class="icon" src="/static/images/user-gray.svg">
-    My Account
+    <div>My Account</div>
     <img class="icon" src="/static/images/arrow-bottom.svg">
     <transition name="fade">
       <div class="list" v-show="visible">
@@ -32,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .menu {
+  .menu-button {
     align-items: center;
     border: 1px solid #D9429F;
     border-radius: 5px;
@@ -78,7 +78,7 @@ export default {
 }
 
 @include mobile {
-  .menu {
+  .menu-button {
     display: none;
   }
 }

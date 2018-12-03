@@ -34,6 +34,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.empty {
+  background: #fff;
+  font-size: 18px;
+  padding: 10px;
+  text-align: center;
+}
+
 @include desktop {
   .activities-list {
     padding: 0 15px 0 15px;
@@ -64,12 +71,5 @@ export default {
     margin: 0;
   }
 
-}
-
-.empty {
-  background: #fff;
-  font-size: 18px;
-  padding: 10px;
-  text-align: center;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="container">
     <Navigation title="MY FAVORITES" />
     <div class="box">
-      <ActivityMenu @changeItem="changeActivitiesType" />
+      <ActivityTypes @changeItem="changeActivitiesType" />
       <FavoritesList :items="items" />
       <Loading v-show="!isLoadedItems" />
       <div class="pagination" v-show="paginationVisible">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ActivityMenu from '@/components/common/ActivityMenu'
+import ActivityTypes from '@/components/common/ActivityTypes'
 import FavoritesList from '@/components/favorites/FavoritesList'
 import Loading from '@/components/common/Loading'
 import Navigation from '@/components/common/Navigation'
@@ -21,7 +21,7 @@ import { getFavorites } from '@/api/favorites'
 
 export default {
   components: {
-    ActivityMenu,
+    ActivityTypes,
     FavoritesList,
     Loading,
     Navigation

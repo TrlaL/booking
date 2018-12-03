@@ -1,5 +1,5 @@
 <template>
-  <div class="activities-menu">
+  <div class="activities-types">
     <div
       class="item"
       v-for="(item, i) in items"
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .activities-menu {
+  .activities-types {
     display: flex;
     padding: 15px 0 15px 0;
     user-select: none;
@@ -62,7 +62,7 @@ export default {
 }
 
 @include mobile {
-  .activities-menu {
+  .activities-types {
     background: #eee;
     border-top: 1px solid #ddd;
     display: flex;

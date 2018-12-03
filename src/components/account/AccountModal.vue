@@ -2,9 +2,9 @@
   <Modal id="account-modal" @changedVisible="changedVisible">
     <div class="content">
       <template v-if="!message">
-        <label>Your Promocode:</label>
-        <input type="text" v-model="code">
-        <button @click="activatePromocode">Activate</button>
+        <label class="label">Your Promocode:</label>
+        <input class="code" type="text" v-model="code">
+        <button class="activate" @click="activatePromocode">Activate</button>
       </template>
       <div class="message" v-else>{{ message }}</div>
     </div>
@@ -44,19 +44,19 @@ export default {
   flex-direction: column;
 }
 
-label {
+.label {
   font-size: 17px;
   margin-bottom: 10px;
 }
 
-input {
+.code {
   border: 1px solid #D4D4D4;
   font: inherit;
   margin-bottom: 10px;
   padding: 8px 3px 8px 3px;
 }
 
-button {
+.activate {
   background: #2F80ED;
   border: 0;
   border-radius: 8px;

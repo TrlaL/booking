@@ -2,7 +2,7 @@
   <div class="container">
     <Navigation title="I’M GOING" />
     <div class="box">
-      <ActivityMenu @changeItem="changeActivitiesType" />
+      <ActivityTypes @changeItem="changeActivitiesType" />
       <GoingList :items="items" />
       <Loading v-show="!isLoadedItems" />
       <div class="pagination" v-show="paginationVisible">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ActivityMenu from '@/components/common/ActivityMenu'
+import ActivityTypes from '@/components/common/ActivityTypes'
 import GoingList from '@/components/going/GoingList'
 import Loading from '@/components/common/Loading'
 import Navigation from '@/components/common/Navigation'
@@ -21,7 +21,7 @@ import { getCurrentActivities } from '@/api/bookings'
 
 export default {
   components: {
-    ActivityMenu,
+    ActivityTypes,
     GoingList,
     Loading,
     Navigation

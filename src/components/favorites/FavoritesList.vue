@@ -3,7 +3,6 @@
     <div class="list" v-if="items.length">
       <Activity
         class="item"
-        type="favorites"
         v-for="(item, i) in items"
         :key="i"
         :item="item"
