@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Modal class="modal">{{ message }}</Modal>
+    <Modal id="messages" class="modal">{{ message }}</Modal>
     <Navigation title="MY ACCOUNT" />
     <AccountMain
       :cards="cards"
@@ -119,7 +119,7 @@ export default {
     },
     showModal (message) {
       this.message = message
-      this.$store.commit('SET_MODAL_VISIBLE', true)
+      this.$store.commit('SET_MODAL_VISIBLE', { id: 'messages', visible: true })
     },
     update () {
       this.loadUserSettings()

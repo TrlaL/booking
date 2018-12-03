@@ -147,7 +147,9 @@ export default {
     }
 
     button.opened {
-      background: #ddd;
+      background: #D9429F;
+      border: 0;
+      color: #fff;
     }
   }
 

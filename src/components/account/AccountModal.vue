@@ -1,5 +1,5 @@
 <template>
-  <Modal @changedVisible="changedVisible">
+  <Modal id="account-modal" @changedVisible="changedVisible">
     <div class="content">
       <template v-if="!message">
         <label>Your Promocode:</label>

@@ -60,12 +60,12 @@
             </template>
           </div>
         </div>
+        <div class="empty" v-show="!cards.length">You have not added cards yet.</div>
+        <div class="add">
+          <a @click="$emit('addCard')">+ Add Card</a>
+        </div>
       </div>
       <Loading v-else />
-      <div class="empty" v-show="!cards.length">You have not added cards yet.</div>
-      <div class="add" v-show="loaded.isCardsLoaded">
-        <a @click="$emit('addCard')">+ Add Card</a>
-      </div>
     </div>
     <div class="section">
       <div class="title">
@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     addCredit () {
-      this.$store.commit('SET_MODAL_VISIBLE', true)
+      this.$store.commit('SET_MODAL_VISIBLE', { id: 'account-modal', visible: true })
     },
     handleCard (card) {
       if (card.isNew) {
@@ -355,7 +355,6 @@ export default {
   }
 
   .add {
-    border-top: 1px solid #ddd;
     background: #eee;
     color: #E1519F;
     cursor: pointer;

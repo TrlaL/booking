@@ -1,7 +1,7 @@
 <template>
   <div class="booking-total">
     <div class="line">GoBambinoGives Fee<span>$0</span></div>
-    <div class="line bold">Total:<span>${{ totalSum }}</span></div>
+    <div class="line bold">Total:<span>${{ totalSum.toFixed(2) }}</span></div>
     <div class="form">
       <div class="card">
         <label>Credit Card Number</label>

@@ -4,7 +4,7 @@
       <div class="blackout"></div>
       <div class="box">
         <div class="close" @click="handleButton(false)">
-          <img class="close" src="/static/images/close.png">
+          <img class="close" src="/static/images/close.svg">
         </div>
         <div class="header" v-if="title">{{ title }}</div>
         <div class="content">
@@ -21,21 +21,11 @@
 
 <script>
 export default {
-  computed: {
-    modalVisible () {
-      return this.$store.getters.modalVisible
-    }
-  },
-  methods: {
-    handleButton (value) {
-      this.setModalVisible(false)
-      this.$emit('clicked', value)
-    },
-    setModalVisible (value) {
-      this.$store.commit('SET_MODAL_VISIBLE', value)
-    }
-  },
   props: {
+    id: {
+      required: true,
+      type: String
+    },
     title: {
       default: 'Modal Window',
       type: String
@@ -45,9 +35,21 @@ export default {
       type: Boolean
     }
   },
-  watch: {
-    modalVisible (value) {
-      this.$emit('changedVisible', value)
+  computed: {
+    modalVisible () {
+      return this.$store.getters.modalVisible(this.id)
+    }
+  },
+  created () {
+    this.$store.commit('SET_MODAL_VISIBLE', { id: this.id, visible: false })
+  },
+  methods: {
+    handleButton (value) {
+      this.setModalVisible(false)
+      this.$emit('clicked', value)
+    },
+    setModalVisible (visible) {
+      this.$store.commit('SET_MODAL_VISIBLE', { id: this.id, visible })
     }
   }
 }

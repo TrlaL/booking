@@ -245,11 +245,24 @@ export default {
   }
 
   .front {
+    height: 230px;
     position: relative;
 
+    &::after {
+      background: rgba(0, 0, 0, 0.2);
+      content: '';
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
     .image {
-      height: 200px;
-      object-fit: cover;
+      height: 100%;
+      object-fit: fill;
+      position: relative;
       width: 100%;
     }
 
@@ -259,15 +272,17 @@ export default {
       position: absolute;
       right: 15px;
       top: 15px;
+      z-index: 10;
     }
 
     .date {
       bottom: 15px;
       color: #fff;
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 600;
       position: absolute;
       left: 15px;
+      z-index: 10;
     }
 
     .price {
@@ -279,6 +294,7 @@ export default {
       padding: 7px 25px 7px 35px;
       position: absolute;
       right: 0;
+      z-index: 10;
     }
   }
 
@@ -295,6 +311,7 @@ export default {
 
     .arrow {
       align-items: center;
+      cursor: pointer;
       display: flex;
     }
   }
