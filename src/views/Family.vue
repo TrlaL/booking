@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Modal class="modal">{{ message }}</Modal>
+    <Modal id="family" class="modal">{{ message }}</Modal>
     <Navigation title="KIDS AND CAREGIVERS" />
     <FamilyMain
       :isLoaded="isLoaded"
@@ -100,7 +100,7 @@ export default {
     },
     showModal (message) {
       this.message = message
-      this.$store.commit('SET_MODAL_VISIBLE', true)
+      this.$store.commit('SET_MODAL_VISIBLE', { id: 'family', visible: true })
     }
   }
 }

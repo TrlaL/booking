@@ -2,7 +2,9 @@
   <div class="header">
     <div class="container">
       <div class="desktop">
-        <img class="logo" src="/static/images/logo-desktop.svg">
+        <router-link to="/">
+          <img class="logo" src="/static/images/logo-desktop.svg">
+        </router-link>
         <div class="links">
           <a href="#">Browse Activities</a>
           <a href="#">Browse Featured Providers</a>
@@ -10,7 +12,9 @@
         </div>
       </div>
       <div class="mobile">
-        <img class="logo" src="/static/images/logo-mobile.svg">
+        <router-link to="/">
+          <img class="logo" src="/static/images/logo-mobile.svg">
+        </router-link>
         <template v-if="isHome">
           <div class="filters">
             <button :class="{ opened: isFiltersOpened }" @click="toggleFilters">Filters</button>
