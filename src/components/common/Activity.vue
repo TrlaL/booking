@@ -1,5 +1,5 @@
 <template>
-  <div class="activities-item">
+  <div class="activity">
     <div class="desktop">
       <div class="front-image">
         <img :src="frontImage">

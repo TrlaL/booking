@@ -143,7 +143,7 @@ export default {
 }
 
 @include mobile {
-  .home-controls {
+  .controls {
     display: none;
   }
 }

@@ -1,11 +1,11 @@
 <template>
-  <div class="home-list">
+  <div class="activities-list">
     <div class="list" v-if="items.length">
       <Activity
         class="item"
+        v-for="(item, i) in items"
         :key="i"
         :item="item"
-        v-for="(item, i) in items"
       />
     </div>
     <div class="empty" v-else-if="isLoadedItems && !items.length">It's empty here</div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Activity from '../common/Activity'
+import Activity from './Activity'
 
 export default {
   components: {
@@ -35,14 +35,13 @@ export default {
 
 <style lang="scss" scoped>
 .empty {
-  background: #fff;
-  font-size: 18px;
+  background: #fff !important;
   padding: 10px;
   text-align: center;
 }
 
 @include desktop {
-  .home-list {
+  .activities-list {
     padding: 0 15px 0 15px;
   }
 
@@ -58,7 +57,11 @@ export default {
 }
 
 @include mobile {
-  .home-list {
+  .box {
+    all: unset;
+  }
+
+  .activities-list {
     background: #eee;
   }
 
@@ -70,6 +73,5 @@ export default {
   .item:last-child {
     margin: 0;
   }
-
 }
 </style>

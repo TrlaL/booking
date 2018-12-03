@@ -2,7 +2,7 @@
   <div class="navigation">
     <div class="back">
       <img src="/static/images/arrow-left.svg">
-      <router-link to="/">Back to Activities</router-link>
+      <router-link to="/">Back to Home</router-link>
     </div>
     <div class="title">{{ title }}</div>
     <MenuButton />

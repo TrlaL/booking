@@ -1,8 +1,8 @@
 <template>
   <div class="container box">
     <HomeControls />
-    <ActivityTypes @changeType="changeActivityType" />
-    <HomeList :items="items" />
+    <ActivitiesTypes @changeType="changeActivityType" />
+    <ActivitiesList :items="items" />
     <Loading v-show="!isLoadedItems" />
     <div class="pagination" v-show="paginationVisible">
       <a @click="getNextPage">Next Page</a>
@@ -11,17 +11,17 @@
 </template>
 
 <script>
-import ActivityTypes from '@/components/common/ActivityTypes'
+import ActivitiesList from '@/components/common/ActivitiesList'
+import ActivitiesTypes from '@/components/common/ActivitiesTypes'
 import HomeControls from '@/components/home/HomeControls'
-import HomeList from '@/components/home/HomeList'
 import Loading from '@/components/common/Loading'
 import { getActivities } from '@/api/activities'
 
 export default {
   components: {
-    ActivityTypes,
+    ActivitiesList,
+    ActivitiesTypes,
     HomeControls,
-    HomeList,
     Loading
   },
   data () {
